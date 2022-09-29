@@ -1,4 +1,4 @@
-package com.nguyennghia.FitnessTracker;
+package com.nghianguyen.FitnessTracker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
