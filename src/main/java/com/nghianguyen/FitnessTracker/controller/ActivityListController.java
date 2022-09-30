@@ -13,19 +13,19 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/activityList")
+@RequestMapping()
 public class ActivityListController {
 
 	@Autowired
     private ActivityListService activityListService; 
 	
-	@GetMapping("/activity")
+	@GetMapping("/activityList")
    public List<ActivityList> getAllActivityLists()         {
        return activityListService.getAllActivityLists();
       
    }
 
-   @GetMapping("/activity/{id}")
+   @GetMapping("/activityList/{id}")
    public Optional<ActivityList> getActivityListById(@PathVariable("id") int id) {
     /* the TutorialRepository provides a method findById(). This methods takes the id of the
     Tutorial to find. This method used to be findOne(). But since Spring data jpa 2.0 it's changed to findById().
@@ -35,13 +35,13 @@ public class ActivityListController {
   /*  To add new Tutorials is really easy. You do this by using the TutorialRepository save() method.
    */
    
-   @PostMapping("/activity")
+   @PostMapping("/activityList")
    public void createActivityList(@RequestBody ActivityList activityList) {
 	   activityListService.addActivityList(activityList);
    }
 
 // To update a tutorial record, we used the same save() and findById()
-   @PutMapping("/activity/{id}")
+   @PutMapping("/activityList/{id}")
    public void updateActivityList(@PathVariable("id") int id, @RequestBody ActivityList activityList) {
        Optional<ActivityList> activityListData = activityListService.getActivityListById(id);
 
@@ -55,14 +55,14 @@ public class ActivityListController {
        }
    }
 
-   @DeleteMapping("/activity/{id}")
+   @DeleteMapping("/activityList/{id}")
    public void deleteActivityList(@PathVariable("id") int id) {
 	   activityListService.deleteActivityList(id);
    }
   /* To delete a tutorials record, you simply use the deleteById() method provided by the tutorialRepository.
    Then you pass in the id of the record you want to delete.
    */
-   @DeleteMapping("/activity")
+   @DeleteMapping("/activityList")
    public void deleteAllActivityLists() {
 	   activityListService.deleteAllActivityLists();
    }
