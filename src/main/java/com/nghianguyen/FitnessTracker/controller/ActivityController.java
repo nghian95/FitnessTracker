@@ -11,14 +11,16 @@ import com.nghianguyen.FitnessTracker.service.ActivityService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @RestController
-@RequestMapping()
+@RequestMapping("/api")
 public class ActivityController {
 
 	@Autowired
-    private ActivityService activityService;      
+    private ActivityService activityService; 
+	
 	@GetMapping("/activity")
-   public List<Activity> getAllActivities(@RequestParam(required = false) String title)         {
+   public List<Activity> getAllActivities()         {
        return activityService.getAllActivities();
       
    }
@@ -32,6 +34,7 @@ public class ActivityController {
    }
   /*  To add new Tutorials is really easy. You do this by using the TutorialRepository save() method.
    */
+   
    @PostMapping("/activity")
    public void createActivity(@RequestBody Activity activity) {
 	   activityService.addActivity(activity);

@@ -18,7 +18,7 @@ public class Activity {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
-		name="Set",
+		name = "activity_set_join",
 		joinColumns = @JoinColumn(name="activityID"),
 		inverseJoinColumns = @JoinColumn(name="setID")
 	)
@@ -36,9 +36,16 @@ public class Activity {
     
     public Activity() {
     	this.comment = "";
+    	activityList = null;
         sets = new ArrayList<Set>();
     }
 
+    public Activity(String comment) {
+        this.activityList = null;
+        this.comment = comment;
+        sets = new ArrayList<Set>();
+    }
+    
     public Activity(ActivityList activityList, String comment) {
         this.activityList = activityList;
         this.comment = comment;

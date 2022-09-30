@@ -1,5 +1,7 @@
 package com.nghianguyen.FitnessTracker.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,9 @@ public class Location {
     @Column(length=100)
     private String locationAddress;
 
+    @ManyToMany(mappedBy = "locations")
+    private List<User> user;
+    
     public Location() {
     	locationName = "";
     	locationAddress = "";

@@ -1,5 +1,7 @@
 package com.nghianguyen.FitnessTracker.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +22,15 @@ public class User {
 	
 	@Column
 	private int phoneNumber;
+	
+	@JoinTable(
+			name = "user_location_join",
+			joinColumns = @JoinColumn(name="email"),
+			inverseJoinColumns = @JoinColumn(name="locationID")
+	)
+	@Column
+	@ManyToMany
+	private List<Location> locations;
 	
 	public User() {
 		password = "";

@@ -23,9 +23,10 @@ public class ActivityService {
    private ActivityRepository activityRepository;
 
    public List<Activity> getAllActivities() {
-       List<Activity> activities = new ArrayList<Activity>();
-       activityRepository.findAll().forEach(activities::add);
-       return activities;
+//       List<Activity> activities = new ArrayList<Activity>();
+//       activityRepository.findAll().forEach(activities::add);
+	   return activityRepository.findAll();
+//       return activities;
    }
 
 
@@ -37,7 +38,7 @@ public class ActivityService {
        activityRepository.save(activity);
    }
 
-   public void updateActivity(int id, Activity activity) {
+   public void updateActivity(Integer id, Activity activity) {
        Optional<Activity> activityData = activityRepository.findById(id);
 
        if (activityData.isPresent()) {
@@ -49,7 +50,7 @@ public class ActivityService {
        }
    }
 
-   public void deleteActivity(int id) {
+   public void deleteActivity(Integer id) {
        activityRepository.deleteById(id);
    }
 
