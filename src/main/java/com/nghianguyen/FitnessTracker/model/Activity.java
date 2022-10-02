@@ -3,7 +3,20 @@ package com.nghianguyen.FitnessTracker.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "activity")
@@ -22,6 +35,7 @@ public class Activity {
 		joinColumns = @JoinColumn(name="activityID"),
 		inverseJoinColumns = @JoinColumn(name="setID")
 	)
+	@JsonIgnore
     private List<Set> sets;
 
 //    @Column(name = "reps")
@@ -76,6 +90,10 @@ public class Activity {
 		this.sets = sets;
 	}
 
+	public void addSet(Set set) {
+		sets.add(set);
+	}
+	
 	public String getComment() {
 		return comment;
 	}
@@ -84,6 +102,7 @@ public class Activity {
 		this.comment = comment;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Activity [activityID=" + activityID + ", activityList=" + activityList + ", sets=" + sets + ", comment="

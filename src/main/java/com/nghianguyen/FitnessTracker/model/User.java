@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -30,6 +32,7 @@ public class User {
 	)
 	@Column
 	@ManyToMany
+	@JsonIgnore
 	private List<Location> locations;
 	
 	public User() {

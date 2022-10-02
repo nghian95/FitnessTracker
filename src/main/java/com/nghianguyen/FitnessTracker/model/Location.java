@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "location")
 public class Location {
@@ -18,6 +20,7 @@ public class Location {
     private String locationAddress;
 
     @ManyToMany(mappedBy = "locations")
+    @JsonIgnore
     private List<User> user;
     
     public Location() {
