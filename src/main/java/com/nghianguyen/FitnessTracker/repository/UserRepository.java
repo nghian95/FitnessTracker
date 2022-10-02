@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>
+public interface UserRepository extends JpaRepository<User, String>
 // Tutorial → Entity type and Long --> primary key
 {
 //	List<Activity> findByPublished(boolean published);
