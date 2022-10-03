@@ -20,7 +20,7 @@ public class ActivityController {
     private ActivityService activityService; 
 	
 	@GetMapping("/activity")
-   public List<Activity> getAllActivities()         {
+   public List<Activity> getAllActivities(){
        return activityService.getAllActivities();
       
    }

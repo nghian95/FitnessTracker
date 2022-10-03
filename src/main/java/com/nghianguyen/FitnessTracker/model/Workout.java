@@ -1,8 +1,11 @@
 package com.nghianguyen.FitnessTracker.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "workout")
@@ -12,19 +15,45 @@ public class Workout {
     private int workoutID;
     
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private Date workoutDate;
     
     @ManyToOne
     private Location location;
     
+    @ManyToOne
+    private User user;
+    
     public Workout() {
-    	workoutDate = null;
+    	workoutDate = new Date();
     	location = null;
+    	user = null;
+    }
+    
+    public Workout(User user) {
+    	workoutDate = new Date();
+    	location = null;
+    	this.user = user;
+    }
+    
+    public Workout(Date workoutDate, User user) {
+    	this.workoutDate = workoutDate;
+    	location = null;
+    	this.user = user;
     }
 
-	public Workout(Date workoutDate, Location location) {
+	public Workout(Date workoutDate, User user, Location location) {
 		this.workoutDate = workoutDate;
+		this.user = user;
 		this.location = location;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getWorkoutID() {
