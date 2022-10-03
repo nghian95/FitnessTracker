@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Activities</title>
+</head>
+<body>
+<h1>List of Activities</h1>
+<table style="border: 1px solid black">
+
+	<tr>
+		<th>Activity ID</th>
+		<th>Activity List</th>
+		<th>Sets</th>
+		<th>Comment</th>
+	</tr>
+	<tr th:each="eachActivity: ${listOfActivities}">
+		<td th:text="${eachActivity.activityID}"></td>
+		<td th:if="${eachActivity.activityList} != null" th:text="${eachActivity.activityList.activityName}"></td>
+		<td th:unless="${eachActivity.activityList} != null">N/A</td>
+		<td th:text="${eachActivity.sets.size()}"></td>
+		<td th:text="${eachActivity.comment}"></td>
+	</tr>
+</table>
+</body>
+</html>

@@ -17,9 +17,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "activity")
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "sets"})
 public class Activity {
 
     @Id
@@ -105,7 +107,7 @@ public class Activity {
 	
 	@Override
 	public String toString() {
-		return "Activity [activityID=" + activityID + ", activityList=" + activityList + ", sets=" + sets + ", comment="
+		return "Activity [activityID=" + activityID + ", activityList=" + activityList + ", sets=" + sets.size() + ", comment="
 				+ comment + "]";
 	}
 

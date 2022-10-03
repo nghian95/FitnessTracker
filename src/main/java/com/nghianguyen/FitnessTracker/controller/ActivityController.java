@@ -1,36 +1,44 @@
 package com.nghianguyen.FitnessTracker.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.nghianguyen.FitnessTracker.model.Activity;
 import com.nghianguyen.FitnessTracker.service.ActivityService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-@RestController
-@RequestMapping()
+@Controller
+//@RequestMapping()
 public class ActivityController {
 
 	@Autowired
     private ActivityService activityService; 
 	
 	@GetMapping("/activity")
-   public List<Activity> getAllActivities(){
-       return activityService.getAllActivities();
-      
+   public String getAllActivities(Model model){
+//		for (Activity act: activityService.getAllActivities()) {
+//			System.out.println(act);
+//		}
+		model.addAttribute("listOfActivities", activityService.getAllActivities());
+		return "listOfActivities";
    }
+	
 
    @GetMapping("/activity/{id}")
-   public Optional<Activity> getActivityById(@PathVariable("id") int id) {
-    /* the TutorialRepository provides a method findById(). This methods takes the id of the
-    Tutorial to find. This method used to be findOne(). But since Spring data jpa 2.0 it's changed to findById().
-     */
-       return  activityService.getActivityById(id);
+   public String getActivityById(@PathVariable("id") int id, Model model) {
+		model.addAttribute("activity", activityService.getActivityById(id).get());
+		return "singleActivity";
    }
   /*  To add new Tutorials is really easy. You do this by using the TutorialRepository save() method.
    */
