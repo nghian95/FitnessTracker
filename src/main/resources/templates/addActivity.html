@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="#" th:action="@{/activity}" th:object="${activity}" method="post">
+	    <table border="1">
+	        <tr>
+	            <td><label th:text="#{msg.id}"></label></td>
+	            <td><input type="number" th:field="*{id}" /></td>
+	        </tr>
+	        <tr>
+	            <td><label th:text="#{msg.name}"></label></td>
+	            <td><input type="text" th:field="*{name}" /></td>
+	        </tr>
+	        <tr>
+	            <td><input type="submit" value="Submit" /></td>
+	        </tr>
+	    </table>
+	</form>
+</body>
+</html>
