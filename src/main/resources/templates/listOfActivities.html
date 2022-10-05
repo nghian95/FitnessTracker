@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+<!-- <script th:src="@{/script/javascript.js}" defer> -->
+<script th:inline="javascript" defer>
+	function confirmDelete(id) {
+		if (confirm('Do you want to delete this?') == true) {
+			const HTTP = new XMLHttpRequest();
+			const url='/deleteActivity/' + id;
+			HTTP.open('DELETE', url, true);
+			HTTP.onload = function () {
+				while (HTTP.readyState != 4) {
+					
+				}
+				window.location.replace('/activity');
+			};
+			HTTP.send();
+		}	
+	}
+</script> 
 <head>
 <meta charset="ISO-8859-1">
 <title>View Activities</title>
@@ -21,8 +38,9 @@
 		<td th:unless="${eachActivity.activityList} != null">N/A</td>
 		<td th:text="${eachActivity.sets.size()}"></td>
 		<td th:text="${eachActivity.comment}"></td>
-		<td><a th:href="@{/updateActivity(activityID=${eachActivity.activityID})}" >Update</a></td>
-		<td>Delete</td>
+		<td><a th:href="@{/updateActivity(activityID=${eachActivity.activityID})}">Update</a></td>
+<!-- 		<td><a th:href="@{/deleteActivity(activityID=${eachActivity.activityID})}">Delete</a></td> -->
+		<td><input type="button" th:onclick="confirmDelete([[${eachActivity.activityID}]])" value="Delete"></td>
 	</tr>
 </table>
 </body>

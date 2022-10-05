@@ -7,11 +7,11 @@
 </head>
 <body>
 	<h3>Update Activity</h3>
-	<form action="#" th:action="@{/activity}" method="put">
+	<form action="#" th:action="@{/updateActivity}" th:object="${activity}" th:method="put">
 	    <table>
 	    	<tr>
 	    		<td><label path="activityID">Activity ID</label></td>
-	    		<td><input name="activityID" th:value="${activity.activityID}" disabled/></td>
+	    		<td><input name="activityID" th:value="${activity.activityID}" readonly/></td>
 	    	</tr>
 	        <tr>
 	            <td><label path="activityList">Workout Activity:</label></td>

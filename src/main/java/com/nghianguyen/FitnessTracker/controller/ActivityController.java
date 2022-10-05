@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nghianguyen.FitnessTracker.model.Activity;
 import com.nghianguyen.FitnessTracker.model.ActivityList;
@@ -78,7 +78,7 @@ public class ActivityController {
 
 // To update a tutorial record, we used the same save() and findById()
 //   @PutMapping("/activity/{id}")
-   @PutMapping("/activity")
+   @PutMapping("/updateActivity")
 //   public void updateActivity(@PathVariable("id") int id, @RequestBody Activity activity) {
    public String updateActivity(@ModelAttribute Activity activity, Model model) {
        Optional<Activity> activityData = activityService.getActivityById(activity.getActivityID());
@@ -97,14 +97,18 @@ public class ActivityController {
        return "singleActivity";
    }
    
-   @DeleteMapping("/activity/{id}")
+   @DeleteMapping("/deleteActivity/{id}")
    public void deleteActivity(@PathVariable("id") int id) {
 	   activityService.deleteActivity(id);
+//	   getAllActivities(model);
+//	   return new ModelAndView("redirect:/activity");
+//	   return new ModelAndView("activity");
+//	   return "redirect:/activity";
    }
   /* To delete a tutorials record, you simply use the deleteById() method provided by the tutorialRepository.
    Then you pass in the id of the record you want to delete.
    */
-   @DeleteMapping("/activity")
+   @DeleteMapping("/deleteActivity")
    public void deleteAllActivities() {
 	   activityService.deleteAllActivities();
    }
