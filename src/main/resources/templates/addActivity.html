@@ -3,18 +3,24 @@
 <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Please add the activity here:</title>
 </head>
 <body>
-	<form action="#" th:action="@{/activity}" th:object="${activity}" method="post">
-	    <table border="1">
+	<form action="#" th:action="@{/activity}" method="post">
+	    <table>
 	        <tr>
-	            <td><label th:text="#{msg.id}"></label></td>
-	            <td><input type="number" th:field="*{id}" /></td>
+	            <td><label path="activityList">Workout Activity:</label></td>
+<!-- 	            <td><input type="text" name="activityListName" /></td> -->
+	            <td>
+	            	<select name="activityList">
+	            		<option>Select Activity</option>
+	            		<option th:each="activityLst: ${activityLists}" th:text="${activityLst.activityName}" th:value="${activityLst.activityListID}"></option>
+	            	</select>
+	            </td>
 	        </tr>
 	        <tr>
-	            <td><label th:text="#{msg.name}"></label></td>
-	            <td><input type="text" th:field="*{name}" /></td>
+	            <td><label path="comment">Enter Comment</label></td>
+	            <td><input type="text" name="comment"/></td>
 	        </tr>
 	        <tr>
 	            <td><input type="submit" value="Submit" /></td>

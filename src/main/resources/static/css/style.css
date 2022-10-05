@@ -1,7 +1,13 @@
 @charset "ISO-8859-1";
 table, th, td {
 	border: 1px solid black;
+
 }
+
+.inputSet {
+	width:2rem;
+}
+
 table {
 	border-collapse: collapse;
 }

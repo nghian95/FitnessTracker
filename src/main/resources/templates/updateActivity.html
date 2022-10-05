@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Update Activity</title>
+</head>
+<body>
+	<h3>Update Activity</h3>
+	<form action="#" th:action="@{/activity}" method="put">
+	    <table>
+	    	<tr>
+	    		<td><label path="activityID">Activity ID</label></td>
+	    		<td><input name="activityID" th:value="${activity.activityID}" disabled/></td>
+	    	</tr>
+	        <tr>
+	            <td><label path="activityList">Workout Activity:</label></td>
+<!-- 	            <td><input type="text" name="activityListName" /></td> -->
+	            <td>
+	            	<select name="activityList">
+	            		<option>Select Activity</option>
+	            		<option th:each="activityLst: ${activityLists}" th:text="${activityLst.activityName}" th:value="${activityLst.activityListID}"></option>
+	            	</select>
+	            </td>
+	        </tr>
+	        <tr>
+	        	<td>Sets</td>
+		        <td>
+			        <table style="width:100%;text-align:center;margin:auto">
+				        <tr>
+				        	<th>Set</th>
+				        	<th>Reps</th>
+				        	<th>Weight</th>
+				        </tr>
+				        <tr th:each="eachSet,iter: ${activity.sets}">
+				        	<td><input class="inputSet" th:value="${iter.index}+1"></td>
+				        	<td><input class="inputSet" th:value="${eachSet.reps}"></td>
+				        	<td><input class="inputSet" th:value="${eachSet.weight}"></td>
+<!-- 				        	<td th:text="${eachSet.reps}" th:value="${eachSet.reps}"></td> -->
+<!-- 				        	<td th:text="${eachSet.weight}" th:value="${eachSet.weight}"></td> -->
+				        </tr>
+			        </table>
+		        </td>
+	        </tr>
+	        <tr>
+	            <td><label path="comment">Enter Comment</label></td>
+	            <td><input type="text" name="comment"/></td>
+	        </tr>
+	        <tr>
+	            <td><input type="submit" value="Submit" /></td>
+	        </tr>
+	    </table>
+	</form>
+</body>
+</html>

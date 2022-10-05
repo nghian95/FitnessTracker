@@ -62,6 +62,12 @@ public class Activity {
         sets = new ArrayList<Set>();
     }
     
+    public Activity(ActivityList activityList) {
+        this.activityList = activityList;
+        this.comment = "";
+        sets = new ArrayList<Set>();
+    }
+    
     public Activity(ActivityList activityList, String comment) {
         this.activityList = activityList;
         this.comment = comment;

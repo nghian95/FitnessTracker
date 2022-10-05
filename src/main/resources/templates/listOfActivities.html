@@ -21,6 +21,8 @@
 		<td th:unless="${eachActivity.activityList} != null">N/A</td>
 		<td th:text="${eachActivity.sets.size()}"></td>
 		<td th:text="${eachActivity.comment}"></td>
+		<td><a th:href="@{/updateActivity(activityID=${eachActivity.activityID})}" >Update</a></td>
+		<td>Delete</td>
 	</tr>
 </table>
 </body>
