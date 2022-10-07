@@ -12,13 +12,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 
-<title>Please add the workout here:</title>
+<title>Add Workout</title>
 </head>
 <body>
 	<div th:insert="fragments/header.html"></div>
+	<h2 style="text-align:center">Please add the workout here:</h2>
 	<div class="container">
 		<form action="#" th:action="@{/workout}" method="post">
-		    <table>
+		    <table style="margin:auto">
 		        <tr>
 		            <td><label path="workoutDate">Workout Date</label></td>
 		            <td><input type="date" name="workoutDate"/></td>
@@ -28,7 +29,7 @@
 		            <td>
 		            	<select name="location">
 		            		<option disabled selected>Select Location</option>
-		            		<option th:each="_location: ${locations}" th:text="${_location.locationName}" th:value="${_location.locationID}"></option>
+		            		<option th:each="_location: ${locations}" th:text="${_location.locationName + ' | ' + _location.locationAddress}" th:value="${_location.locationID}"></option>
 		            	</select>
 		            </td>
 		        </tr>

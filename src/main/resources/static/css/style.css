@@ -5,8 +5,14 @@
 	margin:auto;
 }
 
-input {
+input, h1 {
 	text-align:center;
+}
+
+@media (min-width: 768px) {
+	.container {
+		width: 100%;
+	}
 }
 
 #bootstrap-overrides .inputSet {

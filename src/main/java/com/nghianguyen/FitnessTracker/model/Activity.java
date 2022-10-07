@@ -39,6 +39,9 @@ public class Activity {
 	)
 	@JsonIgnore
     private List<Set> sets;
+	
+	@ManyToOne
+	private Workout workout;
 
 //    @Column(name = "reps")
 //    private List<Integer> reps;

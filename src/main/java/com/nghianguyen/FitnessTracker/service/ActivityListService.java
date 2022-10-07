@@ -31,7 +31,7 @@ public class ActivityListService {
 //       return activities;
    }
 
-   public Optional<ActivityList> getActivityListById(Integer id) {
+   public Optional<ActivityList> getActivityListByID(Integer id) {
         return activityListRepository.findById(id);
    }
    

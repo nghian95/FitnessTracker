@@ -12,27 +12,29 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 
-<title>Add Activity</title>
+<title>Add Activity List</title>
 </head>
 <body>
 	<div th:insert="fragments/header.html"></div>
-	<h1 style="text-align:center">Please add the activity here:</h1>
 	<div class="container">
-		<form action="#" th:action="@{/activity}" method="post">
+		<h1 style="text-align:center">Add an Activity List here:</h1>
+		<form action="#" th:action="@{/activityList}" method="post">
 		    <table style="margin:auto">
 		        <tr>
-		            <td><label path="activityList">Workout Activity:</label></td>
-	<!-- 	            <td><input type="text" name="activityListName" /></td> -->
-		            <td>
-		            	<select name="activityList">
-		            		<option selected disabled>Select Activity</option>
-		            		<option th:each="activityLst: ${activityLists}" th:text="${activityLst.activityName}" th:value="${activityLst.activityListID}"></option>
-		            	</select>
-		            </td>
+		            <td><label path="activityName">Activity List Name</label></td>
+		            <td><input type="text" name="activityName"/></td>
 		        </tr>
 		        <tr>
-		            <td><label path="comment">Enter Comment</label></td>
-		            <td><textarea class="textarea" name="comment"></textarea></td>
+		            <td><label path="description">Description</label></td>
+		            <td><textarea class="textarea" name="description"></textarea></td>
+		        </tr>
+		        <tr>
+					<td><label path="majorMuscleGroup">Major Muscle Group</label></td>
+		            <td><input type="text" name="majorMuscleGroup"/></td>
+		        </tr>
+    		    <tr>
+					<td><label path="minorMuscles">Minor Muscles</label></td>
+		            <td><input type="text" name="minorMuscles"/></td>
 		        </tr>
 		        <tr>
 		            <td colspan=2><input type="submit" value="Submit" /></td>

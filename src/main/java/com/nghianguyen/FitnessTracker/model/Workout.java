@@ -2,9 +2,17 @@ package com.nghianguyen.FitnessTracker.model;
 
 //import java.util.Date;
 import java.sql.Date;
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "workout")
@@ -23,29 +31,42 @@ public class Workout {
     @ManyToOne
     private User user;
     
+    @OneToMany(mappedBy="workout")
+    private List<Activity> activities;
+    
     public Workout() {
-    	
     	workoutDate = new Date(System.currentTimeMillis());
     	location = null;
     	user = null;
+    	activities = new ArrayList<>();
     }
     
     public Workout(User user) {
     	workoutDate = new Date(System.currentTimeMillis());
     	location = null;
     	this.user = user;
+    	activities = new ArrayList<>();
     }
     
     public Workout(Date workoutDate, User user) {
     	this.workoutDate = workoutDate;
     	location = null;
     	this.user = user;
+    	activities = new ArrayList<>();
     }
 
 	public Workout(Date workoutDate, User user, Location location) {
 		this.workoutDate = workoutDate;
 		this.user = user;
 		this.location = location;
+		activities = new ArrayList<>();
+	}
+	
+	public Workout(Date workoutDate, User user, Location location, List<Activity> activities) {
+		this.workoutDate = workoutDate;
+		this.user = user;
+		this.location = location;
+		this.activities = activities;
 	}
 	
 	public User getUser() {

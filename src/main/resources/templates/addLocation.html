@@ -12,27 +12,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 
-<title>Add Activity</title>
+<title>Add Location</title>
 </head>
 <body>
 	<div th:insert="fragments/header.html"></div>
-	<h1 style="text-align:center">Please add the activity here:</h1>
 	<div class="container">
-		<form action="#" th:action="@{/activity}" method="post">
+		<h1 style="text-align:center">Add a Location here:</h1>
+		<form action="#" th:action="@{/location}" method="post">
 		    <table style="margin:auto">
 		        <tr>
-		            <td><label path="activityList">Workout Activity:</label></td>
-	<!-- 	            <td><input type="text" name="activityListName" /></td> -->
+		            <td><label path="locationName">Location Name</label></td>
 		            <td>
-		            	<select name="activityList">
-		            		<option selected disabled>Select Activity</option>
-		            		<option th:each="activityLst: ${activityLists}" th:text="${activityLst.activityName}" th:value="${activityLst.activityListID}"></option>
-		            	</select>
+		            	<input list="locationNames" name="locationName">
+		            	<datalist id="locationNames">
+		            		<option th:each="locationName: ${locationNames}" th:text="${locationName}" th:value="${locationName}"></option>
+		            	</datalist>
 		            </td>
 		        </tr>
 		        <tr>
-		            <td><label path="comment">Enter Comment</label></td>
-		            <td><textarea class="textarea" name="comment"></textarea></td>
+		            <td><label path="locationAddress">Location Address</label></td>
+		            <td><textarea class="textarea" name="locationAddress"></textarea></td>
 		        </tr>
 		        <tr>
 		            <td colspan=2><input type="submit" value="Submit" /></td>

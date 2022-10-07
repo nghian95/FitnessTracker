@@ -38,7 +38,7 @@ public class LocationService {
 		}
 	}
 	
-	public void deleteLocation(Integer id) {
+	public void deleteLocationByID(Integer id) {
 		locationRepository.deleteById(id);
 	}
 	
