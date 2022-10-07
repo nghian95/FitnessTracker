@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "activitySet")
-public class Set {
+public class Set implements Comparable<Set>{
 	@Id 
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int setID;
@@ -81,6 +81,12 @@ public class Set {
 	@Override
 	public String toString() {
 		return "Set [setID=" + setID + ", reps=" + reps + ", weight=" + weight + ", activity=" + activity + "]";
+	}
+
+	@Override
+	public int compareTo(Set s) {
+		// TODO Auto-generated method stub
+		return this.getSetID() - s.getSetID(); 
 	}
 	
 	

@@ -1,13 +1,32 @@
 @charset "ISO-8859-1";
-table, th, td {
+#bootstrap-overrides table, td, th {
 	border: 1px solid black;
-
+	text-align:center;
+	margin:auto;
 }
 
-.inputSet {
+input {
+	text-align:center;
+}
+
+#bootstrap-overrides .inputSet {
 	width:2rem;
 }
 
-table {
+#bootstrap-overrides td.list, th.list {
+	padding: .5rem 2rem .5rem 2rem;
+}
+
+#bootstrap-overrides table {
 	border-collapse: collapse;
+}
+
+.setCell {
+	width: 4rem;
+/* 	margin: .2rem 1rem .2rem 1rem; */
+}
+
+#bootstrap-overrides .updateTable td{
+/* 	margin: .2rem 1rem .2rem 1rem; */
+	padding: .2rem 1rem .2rem 1rem;
 }

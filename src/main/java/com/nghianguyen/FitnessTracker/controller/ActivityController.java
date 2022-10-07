@@ -1,5 +1,7 @@
 package com.nghianguyen.FitnessTracker.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nghianguyen.FitnessTracker.model.Activity;
 import com.nghianguyen.FitnessTracker.model.ActivityList;
+import com.nghianguyen.FitnessTracker.model.Set;
 import com.nghianguyen.FitnessTracker.service.ActivityListService;
 import com.nghianguyen.FitnessTracker.service.ActivityService;
 
@@ -61,6 +64,7 @@ public class ActivityController {
    public String updateActivity(@RequestParam(value="activityID") int activityID, Model model) {
 //	   model.addAttribute("activity", activity);
 	   Activity activity = activityService.getActivityById(activityID).get();
+	   activity.getSets().add(new Set());
 	   model.addAttribute("activity", activity);
 	   List<ActivityList> activityLists = activityListService.getAllActivityLists();
 	   model.addAttribute("activityLists",activityLists);
@@ -87,7 +91,12 @@ public class ActivityController {
     	   Activity updateActivity = activityData.get();
            updateActivity.setActivityList(activity.getActivityList());
            updateActivity.setComment(activity.getComment());
-           updateActivity.setSets(activity.getSets());
+           List<Set> sets = activity.getSets();
+           Set set = sets.get(sets.size()-1);
+           if ((set.getReps() == 0) && set.getWeight() == 0) {
+        	   sets.remove(set);
+           }
+           updateActivity.setSets(sets);
            activityService.addActivity(updateActivity);
        }
        
@@ -113,5 +122,11 @@ public class ActivityController {
 	   activityService.deleteAllActivities();
    }
 
-   }
+	@GetMapping("/nav")
+	public String getNav() {
+		return "header.html";
+	}
+}
+
+
 

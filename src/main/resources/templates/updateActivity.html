@@ -1,55 +1,96 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Update Activity</title>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="ISO-8859-1">
+	<title>Update Activity</title>
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"> 
+	<style>
+		#bootstrap-overrides .tableNoBorder {
+			border: none;
+			padding: 0rem 1rem 0rem 1rem;
+			width: 1rem;
+		}
+		th {
+			border:none;
+		}
+		input {
+		
+		}
+	</style>
 </head>
-<body>
-	<h3>Update Activity</h3>
-	<form action="#" th:action="@{/updateActivity}" th:object="${activity}" th:method="put">
-	    <table>
-	    	<tr>
-	    		<td><label path="activityID">Activity ID</label></td>
-	    		<td><input name="activityID" th:value="${activity.activityID}" readonly/></td>
-	    	</tr>
-	        <tr>
-	            <td><label path="activityList">Workout Activity:</label></td>
-<!-- 	            <td><input type="text" name="activityListName" /></td> -->
-	            <td>
-	            	<select name="activityList">
-	            		<option>Select Activity</option>
-	            		<option th:each="activityLst: ${activityLists}" th:text="${activityLst.activityName}" th:value="${activityLst.activityListID}"></option>
-	            	</select>
-	            </td>
-	        </tr>
-	        <tr>
-	        	<td>Sets</td>
-		        <td>
-			        <table style="width:100%;text-align:center;margin:auto">
-				        <tr>
-				        	<th>Set</th>
-				        	<th>Reps</th>
-				        	<th>Weight</th>
-				        </tr>
-				        <tr th:each="eachSet,iter: ${activity.sets}">
-				        	<td><input class="inputSet" th:value="${iter.index}+1"></td>
-				        	<td><input class="inputSet" th:value="${eachSet.reps}"></td>
-				        	<td><input class="inputSet" th:value="${eachSet.weight}"></td>
-<!-- 				        	<td th:text="${eachSet.reps}" th:value="${eachSet.reps}"></td> -->
-<!-- 				        	<td th:text="${eachSet.weight}" th:value="${eachSet.weight}"></td> -->
-				        </tr>
-			        </table>
-		        </td>
-	        </tr>
-	        <tr>
-	            <td><label path="comment">Enter Comment</label></td>
-	            <td><input type="text" name="comment"/></td>
-	        </tr>
-	        <tr>
-	            <td><input type="submit" value="Submit" /></td>
-	        </tr>
-	    </table>
-	</form>
+<body id="bootstrap-overrides">
+	<div th:insert="fragments/header.html"></div>
+	<div class="container">
+		<h3 style="text-align:center">Update Activity</h3>
+		<form action="#" th:action="@{/updateActivity}" th:object="${activity}" th:method="put">
+		    <table class="updateTable">
+		    	<tr>
+		    		<td><label path="activityID">Activity ID</label></td>
+		    		<td><input name="activityID" th:value="${activity.activityID}" readonly/></td>
+		    	</tr>
+		        <tr>
+		            <td><label path="activityList">Workout Activity:</label></td>
+	<!-- 	            <td><input type="text" name="activityListName" /></td> -->
+		            <td>
+		            	<select name="activityList">
+		            		<option>Select Activity</option>
+		            		<option th:each="activityLst: ${activityLists}" th:text="${activityLst.activityName}" th:value="${activityLst.activityListID}"></option>
+		            	</select>
+		            </td>
+		        </tr>
+		        <tr>
+		        	<td>Sets</td>
+			        <td>
+<!-- 				        <table th:if="${#lists.size(activity.sets)} != 0" style="width:100%;text-align:center;margin:auto"> -->
+				        <table class="tableNoBorder" th:if="${#lists.size(activity.sets)} != 0">
+					        <tr>
+					        	<th style="margin:2rem">Set</th>
+					        	<th class="setCell">Reps</th>
+					        	<th class="setCell">Weight</th>
+					        </tr>
+<!-- 					        <tr th:each="eachSet,iter: ${activity.sets}"> -->
+<!-- 					        	<td><input class="inputSet" th:value="${iter.index}+1"></td> -->
+<!-- 					        	<td><input class="inputSet" th:value="${eachSet.reps}"></td> -->
+<!-- 					        	<td><input class="inputSet" th:value="${eachSet.weight}"></td> -->
+<!-- 					        </tr> -->
+							<tr th:each="set, iter : *{sets}">
+								<td style="border:none" ><input class="setCell" th:value="${iter.index}+1" disabled></td>
+								<td style="border:none" ><input class="setCell" th:field="*{sets[__${iter.index}__].reps}"></td>
+								<td style="border:none" ><input class="setCell" th:field="*{sets[__${iter.index}__].weight}"></td>
+							</tr>
+				        </table>
+<!-- 						<table th:unless="${#lists.size(activity.sets)} != 0"> -->
+<!-- 					        <tr> -->
+<!-- 					        	<th>Set</th> -->
+<!-- 					        	<th>Reps</th> -->
+<!-- 					        	<th>Weight</th> -->
+<!-- 					        </tr> -->
+<!-- 					        <tr > -->
+<!-- 					        	<td><input class="inputSet" th:value="1" disabled></td> -->
+<!-- 					        	<td><input class="inputSet" th:name="" th:value="set"></td> -->
+<!-- 					        	<td><input class="inputSet"></td> -->
+<!-- 					        </tr> -->
+<!-- 				        </table> -->
+			        </td>
+		        </tr>
+		        <tr>
+		            <td><label path="comment">Enter Comment</label></td>
+		            <td><input type="text" name="comment"/></td>
+		        </tr>
+		        <tr>
+		            <td colspan=2><input type="submit" value="Submit" /></td>
+		        </tr>
+		    </table>
+		</form>
+	</div>
 </body>
 </html>
