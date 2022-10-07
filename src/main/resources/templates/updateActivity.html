@@ -42,7 +42,7 @@
 	<!-- 	            <td><input type="text" name="activityListName" /></td> -->
 		            <td>
 		            	<select name="activityList">
-		            		<option>Select Activity</option>
+		            		<option disabled selected>Select Activity</option>
 		            		<option th:each="activityLst: ${activityLists}" th:text="${activityLst.activityName}" th:value="${activityLst.activityListID}"></option>
 		            	</select>
 		            </td>

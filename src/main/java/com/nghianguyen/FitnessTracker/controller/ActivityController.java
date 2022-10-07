@@ -1,7 +1,5 @@
 package com.nghianguyen.FitnessTracker.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.nghianguyen.FitnessTracker.model.Activity;
 import com.nghianguyen.FitnessTracker.model.ActivityList;
@@ -25,7 +22,6 @@ import com.nghianguyen.FitnessTracker.service.ActivityListService;
 import com.nghianguyen.FitnessTracker.service.ActivityService;
 
 @Controller
-//@RequestMapping()
 public class ActivityController {
 
 	@Autowired
@@ -35,30 +31,25 @@ public class ActivityController {
 	private ActivityListService activityListService;
 	
 	@GetMapping("/activity")
-   public String getAllActivities(Model model){
-//		for (Activity act: activityService.getAllActivities()) {
-//			System.out.println(act);
-//		}
+	public String getAllActivities(Model model){
 		model.addAttribute("listOfActivities", activityService.getAllActivities());
 		return "listOfActivities";
-   }
+	}
 	
 
-   @GetMapping("/activity/{id}")
-   public String getActivityById(@PathVariable("id") int id, Model model) {
+	@GetMapping("/activity/{id}")
+	public String getActivityById(@PathVariable("id") int id, Model model) {
 		model.addAttribute("activity", activityService.getActivityById(id).get());
 		return "singleActivity";
-   }
-  /*  To add new Tutorials is really easy. You do this by using the TutorialRepository save() method.
-   */
+	}
    
-   @GetMapping("/addActivity")
-   public String activityForm(Model model) {
-	   List<ActivityList> activityLists = activityListService.getAllActivityLists();
-	   model.addAttribute("activityLists",activityLists);
-	   return "addActivity";
-   }
-   
+	@GetMapping("/addActivity")
+	public String activityForm(Model model) {
+		List<ActivityList> activityLists = activityListService.getAllActivityLists();
+	   	model.addAttribute("activityLists",activityLists);
+	   	return "addActivity";
+	}
+	
    @GetMapping("/updateActivity")
 //   public String updateActivity(@ModelAttribute("eachActivity") Activity activity, Model model) {
    public String updateActivity(@RequestParam(value="activityID") int activityID, Model model) {
@@ -109,10 +100,6 @@ public class ActivityController {
    @DeleteMapping("/deleteActivity/{id}")
    public void deleteActivity(@PathVariable("id") int id) {
 	   activityService.deleteActivity(id);
-//	   getAllActivities(model);
-//	   return new ModelAndView("redirect:/activity");
-//	   return new ModelAndView("activity");
-//	   return "redirect:/activity";
    }
   /* To delete a tutorials record, you simply use the deleteById() method provided by the tutorialRepository.
    Then you pass in the id of the record you want to delete.
