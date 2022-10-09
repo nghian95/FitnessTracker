@@ -31,10 +31,10 @@ public class ActivityListService {
 //       return activities;
    }
 
-   public Optional<ActivityList> getActivityListById(Integer id) {
+   public Optional<ActivityList> getActivityListByID(Integer id) {
         return activityListRepository.findById(id);
    }
-
+   
    public void addActivityList(ActivityList activityList) {
 	   activityListRepository.save(activityList);
    }

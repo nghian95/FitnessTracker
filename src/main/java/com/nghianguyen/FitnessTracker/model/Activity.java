@@ -39,6 +39,9 @@ public class Activity {
 	)
 	@JsonIgnore
     private List<Set> sets;
+	
+	@ManyToOne
+	private Workout workout;
 
 //    @Column(name = "reps")
 //    private List<Integer> reps;
@@ -59,6 +62,12 @@ public class Activity {
     public Activity(String comment) {
         this.activityList = null;
         this.comment = comment;
+        sets = new ArrayList<Set>();
+    }
+    
+    public Activity(ActivityList activityList) {
+        this.activityList = activityList;
+        this.comment = "";
         sets = new ArrayList<Set>();
     }
     

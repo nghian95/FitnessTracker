@@ -13,6 +13,7 @@ import com.nghianguyen.FitnessTracker.model.Activity;
 import com.nghianguyen.FitnessTracker.repository.ActivityRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,9 @@ public class ActivityService {
 
 
    public Optional<Activity> getActivityById(Integer id) {
-        return activityRepository.findById(id);
+        Optional<Activity> activity = activityRepository.findById(id);
+        Collections.sort(activity.get().getSets());
+        return activity;
    }
 
    public void addActivity(Activity activity) {

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="ISO-8859-1">
+	<title>Update Location</title>
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<style>
+		#bootstrap-overrides .tableNoBorder {
+			border: none;
+			padding: 0rem 1rem 0rem 1rem;
+			width: 1rem;
+		}
+		th {
+			border:none;
+		}
+		input {
+		
+		}
+	</style>
+</head>
+<body id="bootstrap-overrides">
+	<div th:insert="fragments/header.html"></div>
+	<div class="container">
+		<h3 style="text-align:center">Update Location</h3>
+		<form action="#" th:action="@{/updateLocation}" th:object="${location}" th:method="put">
+		    <table class="updateTable">
+		    	<tr hidden>
+		    		<td><label path="locationID">Location ID</label></td>
+		    		<td><input name="locationID" th:value="${location.locationID}" readonly/></td>
+		    	</tr>
+		        <tr>
+		            <td><label path="locationName">Location Name</label></td>
+		            <td>
+		            	<select name="locationName">
+		            		<option disabled selected>Select Location</option>
+		            		<option th:each="locationNm: ${locationNames}" th:text="${locationNm}" th:value="${locationNm}"></option>
+		            	</select>
+		            </td>
+		        </tr>
+		        <tr>
+		            <td><label path="locationAddress">Location Address</label></td>
+		            <td><textarea class="textarea" name="locationAddress" th:value="${location.locationAddress}" th:text="${location.locationAddress}"></textarea></td>
+		        </tr>
+		        
+		        <tr> 
+		        	<td><label>Do you workout here?</label></td>
+		        	<td>
+		        		<select th:name="addUser">
+		        			<option th:value="Yes" th:text="Yes"></option>
+		        			<option th:value="No" th:text="No"></option>
+		        		</select>
+		        	</td>
+		        </tr>
+		        <tr>
+		            <td colspan=2><input type="submit" value="Submit" /></td>
+		        </tr>
+		    </table>
+		</form>
+	</div>
+</body>
+</html>
