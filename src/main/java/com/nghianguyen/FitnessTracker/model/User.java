@@ -1,5 +1,6 @@
 package com.nghianguyen.FitnessTracker.model;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.*;
@@ -35,6 +36,15 @@ public class User {
 	@JsonIgnore
 	private List<Location> locations;
 	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	   @JoinTable(
+	           name = "users_roles",
+	           joinColumns = @JoinColumn(
+	                   name = "user_email", referencedColumnName = "email"),
+	           inverseJoinColumns = @JoinColumn(
+	                   name = "role_id", referencedColumnName = "id"))
+	private Collection<Role> roles;
+	
 	public User() {
 		password = "";
 		firstName = "";
@@ -49,6 +59,14 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public User(String password, String firstName, String lastName, int phoneNumber, Collection<Role> roles) {
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.roles = roles;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -88,11 +106,24 @@ public class User {
 	public void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	public Collection<Role> getRoles() {
+       return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+       this.roles = roles;
+	}
 
 	@Override
 	public String toString() {
-		return "User [email=" + email + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", phoneNumber=" + phoneNumber + "]";
+		return "User [email=" + email + 
+				", password=" + "*********" + 
+				", firstName=" + firstName + 
+				", lastName=" + lastName + 
+				", phoneNumber=" + phoneNumber + "]" +
+                ", roles=" + roles +
+                '}';
 	}
 	
 	
