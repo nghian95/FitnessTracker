@@ -1,5 +1,6 @@
 package com.nghianguyen.FitnessTracker.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,10 @@ public class WorkoutService {
 	
 	public List<Workout> getAllWorkouts(){
 		return workoutRepository.findAll();
+	}
+	
+	public Collection<Workout> findWorkoutsByUser(String email){
+		return workoutRepository.findWorkoutsByUser(email);
 	}
 	
 	public Optional<Workout> getWorkoutByID(Integer id) {

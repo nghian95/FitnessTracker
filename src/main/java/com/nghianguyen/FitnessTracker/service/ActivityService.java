@@ -13,6 +13,7 @@ import com.nghianguyen.FitnessTracker.model.Activity;
 import com.nghianguyen.FitnessTracker.repository.ActivityRepository;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,10 @@ public class ActivityService {
 //       activityRepository.findAll().forEach(activities::add);
 	   return activityRepository.findAll();
 //       return activities;
+   }
+   
+   public Collection<Activity> findActivitiesInWorkout(int id) {
+	   return activityRepository.findActivitiesInWorkout(id);
    }
 
 

@@ -8,31 +8,32 @@
  	 <!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"> 
+	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
 	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>View Activity List</title>
 	<script th:inline="javascript" defer>
-		function confirmDelete(id) {
-			if (confirm('Do you want to delete this?') == true) {
-				const HTTP = new XMLHttpRequest();
-				const url='/deleteActivityList/' + id;
-				HTTP.open('DELETE', url, true);
-				HTTP.onload = function () {
-					while (HTTP.readyState != 4) {
+// 		function confirmDelete(id) {
+// 			if (confirm('Do you want to delete this?') == true) {
+// 				const HTTP = new XMLHttpRequest();
+// 				const url='/deleteActivityList/' + id;
+// 				HTTP.open('DELETE', url, true);
+// 				HTTP.onload = function () {
+// 					while (HTTP.readyState != 4) {
 						
-					}
-					window.location.replace('/activityList');
-				};
-				HTTP.send();
-			}	
-		}
+// 					}
+// 					window.location.replace('/activityList');
+// 				};
+// 				HTTP.send();
+// 			}	
+// 		}
 	</script> 
 </head>
 <body>
 	<div th:insert="fragments/header.html"></div>
 	<div class="container">
 		<h1>ActivityList</h1>
-		<table>
+		<table style="margin:auto">
 		
 			<tr>
 				<th>Workout Activity ID</th>
@@ -49,7 +50,7 @@
 				<td th:text="${activityList.majorMuscleGroup}"></td>
 				<td th:text="${activityList.minorMuscles}"></td>
 				<td ><a th:href="@{/updateActivityList(activityListID=${activityList.activityListID})}">Update</a></td>
-				<td ><a href="#" th:onclick="confirmDelete([[${activityList.activityListID}]])">Delete</a></td>
+				<td ><a th:href="@{/deleteActivityList(activityListID=${activityList.activityListID})}" class="confirm">Delete</a></td>
 			</tr>
 		</table>
 	</div>

@@ -18,8 +18,16 @@
 	<div th:insert="fragments/header.html"></div>
 	<h1 style="text-align:center">Please add the activity here:</h1>
 	<div class="container">
-		<form action="#" th:action="@{/activity}" method="post">
+		<form action="#" th:action="@{/activity(workoutID=${workout.workoutID})}" method="post">
 		    <table style="margin:auto">
+		    	<tr>
+		    		<td><label>Workout ID</label></td>
+		    		<td><p th:text="${workout.workoutID}"></p></td>
+		    	</tr>
+		    	<tr>
+		    		<td><label>Workout Date</label></td>
+		    		<td><p th:text="${workout.workoutDate}"></p></td>
+		    	</tr>
 		        <tr>
 		            <td><label path="activityList">Workout Activity:</label></td>
 	<!-- 	            <td><input type="text" name="activityListName" /></td> -->

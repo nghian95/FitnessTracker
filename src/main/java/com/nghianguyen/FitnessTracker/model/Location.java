@@ -19,7 +19,7 @@ public class Location {
     @Column(length=100)
     private String locationAddress;
 
-    @ManyToMany(mappedBy = "locations")
+    @ManyToMany(mappedBy = "locations", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<User> user;
     
@@ -59,8 +59,7 @@ public class Location {
 
 	@Override
 	public String toString() {
-		return "Location [locationID=" + locationID + ", locationName=" + locationName + ", locationAddress="
-				+ locationAddress + "]";
+		return locationName + " | " + locationAddress;
 	}
     
 	

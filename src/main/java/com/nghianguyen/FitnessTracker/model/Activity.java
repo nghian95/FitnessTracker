@@ -15,6 +15,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,7 +29,7 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int activityID;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private ActivityList activityList;
 
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -40,7 +41,8 @@ public class Activity {
 	@JsonIgnore
     private List<Set> sets;
 	
-	@ManyToOne
+	@NotNull
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Workout workout;
 
 //    @Column(name = "reps")
@@ -76,6 +78,21 @@ public class Activity {
         this.comment = comment;
         sets = new ArrayList<Set>();
     }
+
+    public Activity(ActivityList activityList, String comment, Workout workout) {
+        this.activityList = activityList;
+        this.comment = comment;
+        sets = new ArrayList<Set>();
+        this.workout = workout;
+    }
+    
+	public Workout getWorkout() {
+		return workout;
+	}
+
+	public void setWorkout(Workout workout) {
+		this.workout = workout;
+	}
 
 	public int getActivityID() {
 		return activityID;

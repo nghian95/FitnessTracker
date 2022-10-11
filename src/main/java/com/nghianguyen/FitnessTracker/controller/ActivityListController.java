@@ -26,13 +26,13 @@ public class ActivityListController {
 	@GetMapping("/activityList")
    public String getAllActivityLists(Model model)         {
        model.addAttribute("activityLists", activityListService.getAllActivityLists());
-       return "listOfActivityLists";
+       return "list_of_activity_lists";
    }
 
    @GetMapping("/activityList/{id}")
    public String getActivityListById(@PathVariable("id") int id, Model model) {
        model.addAttribute("activityList", activityListService.getActivityListByID(id));
-       return "singleActivityList";
+       return "single_activity_list";
    }
    
 	@GetMapping("/addActivityList")
@@ -40,7 +40,7 @@ public class ActivityListController {
 //		List<ActivityList> activityLists = activityListService.getAllActivityLists();
 //		Set<String> activityListNames = activityLists.stream().map(ActivityList::getActivityListName).collect(Collectors.toSet());
 //		model.addAttribute("activityListNames", activityListNames);
-	   	return "addActivityList";
+	   	return "add_activity_list";
 	}
 	
 	@GetMapping("/updateActivityList")
@@ -49,7 +49,7 @@ public class ActivityListController {
 		model.addAttribute("activityList", activityList);
 		List<ActivityList> activityLists = activityListService.getAllActivityLists();
 		model.addAttribute("activityLists", activityLists);
-		return "updateActivityList";
+		return "update_activity_list";
 	}
    
    @PostMapping("/activityList")
@@ -57,7 +57,7 @@ public class ActivityListController {
 	   activityListService.addActivityList(activityList);
 	   ActivityList retrievedActivityList = activityListService.getActivityListByID(activityList.getActivityListID()).get();
 	   model.addAttribute("activityList", retrievedActivityList);
-	   return "singleActivityList";
+	   return "single_activity_list";
    }
 
    @PutMapping("/updateActivityList")
@@ -65,15 +65,23 @@ public class ActivityListController {
        activityListService.updateActivityList(activityList.getActivityListID(), activityList);
        ActivityList retrievedActivityList = activityListService.getActivityListByID(activityList.getActivityListID()).get();
        model.addAttribute("activityList", retrievedActivityList);
-       return "singleActivityList";
+       return "single_activity_list";
    }
 
-   @DeleteMapping("/deleteActivityList/{id}")
-   public void deleteActivityList(@PathVariable("id") int id) {
-	   activityListService.deleteActivityList(id);
+   @GetMapping("/deleteActivityList")
+   public String deleteActivityList(@RequestParam(value="activityListID") int activityListID, Model model) {
+	   activityListService.deleteActivityList(activityListID);
+	   model.addAttribute("activityLists", activityListService.getAllActivityLists());
+	   return "list_of_activity_lists";
    }
+   
+//   @GetMapping("/deleteActivityList")
+//   public void deleteActivityList(ActivityList activityList) {
+//	   activityListService.deleteActivityList(activityList.getActivityListID());
+//   }
 
-   @DeleteMapping("/deleteActivityList")
+
+   @GetMapping("/deleteAllActivityLists")
    public void deleteAllActivityLists() {
 	   activityListService.deleteAllActivityLists();
    }

@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nghianguyen.FitnessTracker.model.Activity;
 import com.nghianguyen.FitnessTracker.model.ActivityList;
 import com.nghianguyen.FitnessTracker.model.Set;
+import com.nghianguyen.FitnessTracker.model.Workout;
 import com.nghianguyen.FitnessTracker.service.ActivityListService;
 import com.nghianguyen.FitnessTracker.service.ActivityService;
+import com.nghianguyen.FitnessTracker.service.WorkoutService;
 
 @Controller
 public class ActivityController {
@@ -30,24 +32,28 @@ public class ActivityController {
 	@Autowired
 	private ActivityListService activityListService;
 	
+	@Autowired	
+	private WorkoutService workoutService;
+	
 	@GetMapping("/activity")
 	public String getAllActivities(Model model){
 		model.addAttribute("listOfActivities", activityService.getAllActivities());
-		return "listOfActivities";
+		return "list_of_activities";
 	}
-	
 
 	@GetMapping("/activity/{id}")
 	public String getActivityById(@PathVariable("id") int id, Model model) {
 		model.addAttribute("activity", activityService.getActivityById(id).get());
-		return "singleActivity";
+		return "single_activity";
 	}
    
 	@GetMapping("/addActivity")
-	public String activityForm(Model model) {
+	public String activityForm(@RequestParam(value="workoutID") int workoutID, Model model) {
 		List<ActivityList> activityLists = activityListService.getAllActivityLists();
 	   	model.addAttribute("activityLists",activityLists);
-	   	return "addActivity";
+	   	Workout workout = workoutService.getWorkoutByID(workoutID).get();
+	   	model.addAttribute("workout", workout);
+	   	return "add_activity";
 	}
 	
    @GetMapping("/updateActivity")
@@ -59,16 +65,17 @@ public class ActivityController {
 	   model.addAttribute("activity", activity);
 	   List<ActivityList> activityLists = activityListService.getAllActivityLists();
 	   model.addAttribute("activityLists",activityLists);
-	   return "updateActivity";
+	   return "update_activity";
    }
    
    @PostMapping("/activity")
 //   public String addActivity(@RequestParam(name = "activityList") String activityListName, @ModelAttribute Activity activity, ModelMap model) {
-   public String addActivity(@ModelAttribute Activity activity, ModelMap model) {
+   public String addActivity(@RequestParam(value="workoutID") int workoutID, @ModelAttribute Activity activity, ModelMap model) {
+	   activity.setWorkout(workoutService.getWorkoutByID(workoutID).get());
 	   activityService.addActivity(activity);
 	   Activity retrievedActivity = activityService.getActivityById(activity.getActivityID()).get();
 	   model.addAttribute("activity", retrievedActivity);
-	   return "singleActivity";
+	   return "redirect:/workout/" + workoutID;
    }
 
 // To update a tutorial record, we used the same save() and findById()
@@ -94,12 +101,13 @@ public class ActivityController {
 	   Activity retrievedActivity = activityService.getActivityById(activity.getActivityID()).get();
 	   model.addAttribute("activity", retrievedActivity);
        
-       return "singleActivity";
+       return "single_activity";
    }
    
-   @DeleteMapping("/deleteActivity/{id}")
-   public void deleteActivity(@PathVariable("id") int id) {
-	   activityService.deleteActivity(id);
+   @GetMapping("/deleteActivity")
+   public String deleteActivity(@RequestParam("activityID") int activityID) {
+	   activityService.deleteActivity(activityID);
+	   return "activityList";
    }
   /* To delete a tutorials record, you simply use the deleteById() method provided by the tutorialRepository.
    Then you pass in the id of the record you want to delete.

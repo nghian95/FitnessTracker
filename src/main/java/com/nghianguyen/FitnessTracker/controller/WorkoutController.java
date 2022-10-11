@@ -1,5 +1,6 @@
 package com.nghianguyen.FitnessTracker.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nghianguyen.FitnessTracker.model.Location;
+import com.nghianguyen.FitnessTracker.model.User;
 import com.nghianguyen.FitnessTracker.model.Workout;
+import com.nghianguyen.FitnessTracker.service.ActivityService;
 import com.nghianguyen.FitnessTracker.service.LocationService;
+import com.nghianguyen.FitnessTracker.service.UserServiceImpl;
 import com.nghianguyen.FitnessTracker.service.WorkoutService;
 
 @Controller
@@ -27,25 +31,39 @@ public class WorkoutController {
 	@Autowired
 	LocationService locationService;
 	
-	@GetMapping("/workout")
+	@Autowired
+	UserServiceImpl userServiceImpl;
+	
+	@Autowired
+	ActivityService activityService;
+	
+	@GetMapping("/admin/workout")
 	public String getAllWorkouts(Model model) {
 		model.addAttribute("listOfWorkouts",workoutService.getAllWorkouts());
 		for (Workout workout : workoutService.getAllWorkouts()) {
 			System.out.println(workout);
 		}
-		return "listOfWorkouts";
+		return "list_of_workouts";
+	}
+	
+	@GetMapping("/workout")
+	public String findWorkoutsByUser(Model model, Principal principal) {
+		model.addAttribute("listOfWorkouts",workoutService.findWorkoutsByUser(principal.getName()));
+		return "list_of_workouts";
 	}
 	
 	@GetMapping("/workout/{id}")
 	public String getWorkoutByID(@PathVariable("id") int id, Model model) {
-		model.addAttribute("workout", workoutService.getWorkoutByID(id));
-		return "singleWorkout";
+		model.addAttribute("workout", workoutService.getWorkoutByID(id).get());
+//		model.addAttribute("listOfActivities", activityService.getAllActivities());
+		model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(id));
+		return "single_workout";
 	}
 	
 	@GetMapping("/addWorkout")
 	public String workoutForm(Model model) {
 		model.addAttribute("locations", locationService.getAllLocations());
-	   	return "addWorkout";
+	   	return "add_workout";
 	}
 	
 	@GetMapping("/updateWorkout")
@@ -54,15 +72,17 @@ public class WorkoutController {
 		model.addAttribute("workout", workout);
 		List<Location> locations = locationService.getAllLocations();
 		model.addAttribute("locations", locations);
-		return "updateWorkout";
+		return "update_workout";
    }
 	
 	@PostMapping("/workout")
-	public String addWorkout(@ModelAttribute  Workout workout, Model model) {
+	public String addWorkout(@ModelAttribute Workout workout, Model model, Principal principal) {
+		User user = userServiceImpl.findByEmail(principal.getName());
+		workout.setUser(user);
 		workoutService.addWorkout(workout);
 		Workout retrievedWorkout = workoutService.getWorkoutByID(workout.getWorkoutID()).get();
 		model.addAttribute("workout", retrievedWorkout);
-		return "singleWorkout";
+		return "single_workout";
 	}
 	
 	@PutMapping("/updateWorkout")
@@ -78,14 +98,16 @@ public class WorkoutController {
 	       
 		   Workout retrievedWorkout = workoutService.getWorkoutByID(workout.getWorkoutID()).get();
 		   model.addAttribute("workout", retrievedWorkout);
+		   
+		   model.addAttribute("listOfActivities", activityService.getAllActivities());
 	       
-	       return "singleWorkout";
+	       return "single_workout";
 	}
 	
 	@DeleteMapping("/deleteWorkout/{id}")
-	public String deleteWorkout(@PathVariable("id") int id) {
+	public void deleteWorkout(@PathVariable("id") int id) {
 		workoutService.deleteWorkoutByID(id);
-		return "listOfWorkouts";
+//		return "list_of_workouts";
 	}
 	
 	@DeleteMapping("/deleteWorkout") 

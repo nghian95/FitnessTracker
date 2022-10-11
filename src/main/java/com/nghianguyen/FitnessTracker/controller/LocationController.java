@@ -27,13 +27,13 @@ public class LocationController {
 	@GetMapping("/location")
 	public String getAllLocations(Model model) {
 		model.addAttribute("locations", locationService.getAllLocations());
-		return "listOfLocations";
+		return "list_of_locations";
 	}
 	
 	@GetMapping("/location/{id}")
 	public String getLocationByID(@PathVariable("id") int id, Model model) {
 		model.addAttribute("location", locationService.getLocationByID(id));
-		return "singleLocation";
+		return "single_location";
 	}
 	
 	@GetMapping("/addLocation")
@@ -42,7 +42,7 @@ public class LocationController {
 		List<Location> locations = locationService.getAllLocations();
 		Set<String> locationNames = locations.stream().map(Location::getLocationName).collect(Collectors.toSet());
 		model.addAttribute("locationNames", locationNames);
-	   	return "addLocation";
+	   	return "add_location";
 	}
 	
 	@GetMapping("/updateLocation")
@@ -52,7 +52,7 @@ public class LocationController {
 		List<Location> locations = locationService.getAllLocations();
 		Set<String> locationNames = locations.stream().map(Location::getLocationName).collect(Collectors.toSet());
 		model.addAttribute("locationNames", locationNames);
-		return "updateLocation";
+		return "update_location";
 	}
 	
 	@PostMapping("/location")
@@ -60,7 +60,7 @@ public class LocationController {
 		locationService.addLocation(location);
 		Location retrievedLocation = locationService.getLocationByID(location.getLocationID()).get();
 		model.addAttribute("location", retrievedLocation);
-		return "singleLocation";
+		return "single_location";
 	}
 	
 	@PutMapping("/updateLocation") 
@@ -73,13 +73,13 @@ public class LocationController {
 		Location retrievedLocation = locationService.getLocationByID(location.getLocationID()).get();
 		model.addAttribute("location", retrievedLocation);
        
-		return "singleLocation";
+		return "single_location";
 	}
 	
 	@DeleteMapping("/deleteLocation/{id}") 
 	public String deleteLocationByID(@PathVariable("id") int id) {
 		locationService.deleteLocationByID(id);
-		return "listOfLocations";
+		return "list_of_locations";
 	}
 	
 	@DeleteMapping("/deleteLocation") 

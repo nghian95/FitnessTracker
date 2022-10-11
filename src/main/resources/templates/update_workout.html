@@ -47,7 +47,7 @@
 		            <td>
 		            	<select name="location">
 		            		<option disabled selected>Select Location</option>
-		            		<option th:each="_location: ${locations}" th:text="${_location.locationName}" th:value="${_location.locationID}"></option>
+		            		<option th:each="_location: ${locations}" th:text="${_location}" th:value="${_location.locationID}"></option>
 		            	</select>
 		            </td>
 		        </tr>
