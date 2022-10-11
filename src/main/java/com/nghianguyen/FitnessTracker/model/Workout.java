@@ -27,11 +27,11 @@ public class Workout {
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private Date workoutDate;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Location location;
     
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User user;
     
     @OneToMany(mappedBy="workout", cascade = CascadeType.ALL)

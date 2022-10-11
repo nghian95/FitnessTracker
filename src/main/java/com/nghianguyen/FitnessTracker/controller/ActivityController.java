@@ -105,9 +105,11 @@ public class ActivityController {
    }
    
    @GetMapping("/deleteActivity")
-   public String deleteActivity(@RequestParam("activityID") int activityID) {
+   public String deleteActivity(@RequestParam("activityID") int activityID, @RequestParam("workoutID") int workoutID, Model model) {
 	   activityService.deleteActivity(activityID);
-	   return "activityList";
+	   model.addAttribute("workout", workoutService.getWorkoutByID(workoutID).get());
+	   model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(workoutID));
+	   return "single_workout";
    }
   /* To delete a tutorials record, you simply use the deleteById() method provided by the tutorialRepository.
    Then you pass in the id of the record you want to delete.

@@ -104,10 +104,12 @@ public class WorkoutController {
 	       return "single_workout";
 	}
 	
-	@DeleteMapping("/deleteWorkout/{id}")
-	public void deleteWorkout(@PathVariable("id") int id) {
-		workoutService.deleteWorkoutByID(id);
-//		return "list_of_workouts";
+	@GetMapping("/deleteWorkout")
+	public String deleteWorkout(@RequestParam(value="workoutID") int workoutID, Model model, Principal principal) {
+		workoutService.deleteWorkoutByID(workoutID);
+		String email = principal.getName();
+		model.addAttribute("listOfWorkouts", workoutService.findWorkoutsByUser(email));
+		return "list_of_workouts";
 	}
 	
 	@DeleteMapping("/deleteWorkout") 

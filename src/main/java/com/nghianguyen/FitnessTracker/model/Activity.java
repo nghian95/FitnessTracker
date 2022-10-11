@@ -29,10 +29,10 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int activityID;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private ActivityList activityList;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(
 		name = "activity_set_join",
 		joinColumns = @JoinColumn(name="activityID"),
@@ -42,7 +42,7 @@ public class Activity {
     private List<Set> sets;
 	
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Workout workout;
 
 //    @Column(name = "reps")

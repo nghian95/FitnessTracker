@@ -27,7 +27,7 @@ public class Set implements Comparable<Set>{
 	@Column
 	private int weight;
 	
-	@ManyToMany(mappedBy = "sets", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "sets")
 	@JsonIgnore
 	private List<Activity> activity;
 	

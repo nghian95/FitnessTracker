@@ -76,9 +76,10 @@ public class LocationController {
 		return "single_location";
 	}
 	
-	@DeleteMapping("/deleteLocation/{id}") 
-	public String deleteLocationByID(@PathVariable("id") int id) {
-		locationService.deleteLocationByID(id);
+	@GetMapping("/deleteLocation") 
+	public String deleteLocationByID(@RequestParam(value="locationID") int locationID, Model model) {
+		locationService.deleteLocationByID(locationID);
+		model.addAttribute("locations", locationService.getAllLocations());
 		return "list_of_locations";
 	}
 	

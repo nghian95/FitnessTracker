@@ -14,20 +14,20 @@
 	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"> 
 	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
 	<script th:inline="javascript" defer>
-		function confirmDelete(id) {
-			if (confirm('Do you want to delete this?') == true) {
-				const HTTP = new XMLHttpRequest();
-				const url='/deleteWorkout/' + id;
-				HTTP.open('DELETE', url, true);
-				HTTP.onload = function () {
-					while (HTTP.readyState != 4) {
+// 		function confirmDelete(id) {
+// 			if (confirm('Do you want to delete this?') == true) {
+// 				const HTTP = new XMLHttpRequest();
+// 				const url='/deleteWorkout/' + id;
+// 				HTTP.open('DELETE', url, true);
+// 				HTTP.onload = function () {
+// 					while (HTTP.readyState != 4) {
 						
-					}
-					window.location.replace('/workout');
-				};
-				HTTP.send();
-			}	
-		}
+// 					}
+// 					window.location.replace('/workout');
+// 				};
+// 				HTTP.send();
+// 			}	
+// 		}
 	</script>  
 </head>
 <body id="bootstrap-overrides">
@@ -47,7 +47,7 @@
 				<td class="list tdWorkout" th:text="${eachWorkout.workoutDate}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
 				<td class="list tdWorkout" th:text="${eachWorkout.location}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
 				<td class="list"><a th:href="@{/updateWorkout(workoutID=${eachWorkout.workoutID})}">Update</a></td>
-				<td class="list"><a href="#" th:onclick="confirmDelete([[${eachWorkout.workoutID}]])">Delete</a></td>
+				<td class="list"><a th:href="@{/deleteWorkout(workoutID=${eachWorkout.workoutID})}" class="confirm">Delete</a></td>
 			</tr>
 		</table>
 	</div>

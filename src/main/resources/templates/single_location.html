@@ -12,22 +12,6 @@
 	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>View Location</title>
-	<script th:inline="javascript" defer>
-		function confirmDelete(id) {
-			if (confirm('Do you want to delete this?') == true) {
-				const HTTP = new XMLHttpRequest();
-				const url='/deleteLocation/' + id;
-				HTTP.open('DELETE', url, true);
-				HTTP.onload = function () {
-					while (HTTP.readyState != 4) {
-						
-					}
-					window.location.replace('/location');
-				};
-				HTTP.send();
-			}	
-		}
-	</script> 
 </head>
 <body>
 	<div th:insert="fragments/header.html"></div>
@@ -46,7 +30,7 @@
 				<td th:text="${location.locationName}"></td>
 				<td th:text="${location.locationAddress}"></td>
 				<td ><a th:href="@{/updateLocation(locationID=${location.locationID})}">Update</a></td>
-				<td ><a href="#" th:onclick="confirmDelete([[${location.locationID}]])">Delete</a></td>
+				<td ><a th:href="@{/deleteLocation(locationID=${location.locationID})}" class="confirm">Delete</a></td>
 			</tr>
 		</table>
 	</div>

@@ -32,7 +32,7 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name="locationID")
 	)
 	@Column
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JsonIgnore
 	private List<Location> locations;
 	
