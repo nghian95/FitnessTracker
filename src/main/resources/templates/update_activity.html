@@ -70,13 +70,16 @@
 								<td><input class="setCell" th:value="${iter.index}+1" disabled></td>
 								<td><input class="setCell" th:field="*{sets[__${iter.index}__].reps}"></td>
 								<td><input class="setCell" th:field="*{sets[__${iter.index}__].weight}"></td>
+								<td><button type="button" th:onclick="this.parentElement.parentElement.remove()" value="Delete Set">X</button></td>
+<!-- 								<td><button type="button" th:onclick="deleteRow()" value="Delete Set">X</button></td> -->
+						
 							</tr>
 <!-- 							<tr> -->
 <!-- 								<td></td> -->
 <!-- 							</tr> -->
 				        </table>
 						<button type="button" th:onclick="addRow()" value="Add Set">Add Set</button>
-				        <button type="button" th:onclick="deleteRow()" value="Delete Set">Remove Set</button>
+				        
 <!-- 						<table th:unless="${#lists.size(activity.sets)} != 0"> -->
 <!-- 					        <tr> -->
 <!-- 					        	<th>Set</th> -->

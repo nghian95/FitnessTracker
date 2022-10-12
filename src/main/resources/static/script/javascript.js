@@ -32,8 +32,13 @@ function addRow() {
 	const row = document.createElement("tr");
 	const id = document.createElement("td");
 	const idInput = document.createElement("input");
-	const lastSetNum = document.querySelector(".tableNoBorder tr:last-child td:first-child input");
-	const idValue = lastSetNum.value;
+	var lastSetNum = document.querySelector(".tableNoBorder tr:last-child td:first-child input");
+	var idValue;
+	if (lastSetNum == null) {
+		idValue = 0;
+	}else {
+		idValue = lastSetNum.value;
+	}
 	idInput.setAttribute("class","setCell");
 	idInput.setAttribute("value", parseInt(idValue)+1);
 	
@@ -49,9 +54,16 @@ function addRow() {
 	weightInput.setAttribute("class","setCell");
 	weightInput.setAttribute("name","sets["+idValue+"].weight");
 	weight.appendChild(weightInput);
+	const x = document.createElement("td");
+	const xButton = document.createElement("button");
+	xButton.setAttribute("type", "button");
+	xButton.setAttribute("onclick", "this.parentElement.parentElement.remove()");
+	xButton.innerText="X";
+	x.appendChild(xButton);
 	row.appendChild(id);
 	row.appendChild(reps);
 	row.appendChild(weight);
+	row.appendChild(x);
 	table.append(row);
 	//const set = new Set();
 	//set.reps = 5;
@@ -59,4 +71,13 @@ function addRow() {
 	//listOfSets.push(set);
 	//idInput.setAttribute("value", listOfSets);
 }
+/*
+function deleteRow() {
+	//const row = $(this).parent().parent();
+	//const row = this.parentElement.parentElement;
+	console.log(this);
+	console.log(row);
+	row.style.backgroundColor = "red";
+	row.remove();
+}*/
 
