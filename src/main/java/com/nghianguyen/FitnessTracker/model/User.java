@@ -67,6 +67,16 @@ public class User {
 		this.roles = roles;
 	}
 	
+	
+	
+	public List<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
+	}
+
 	public String getEmail() {
 		return email;
 	}

@@ -1,28 +1,25 @@
 package com.nghianguyen.FitnessTracker.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.nghianguyen.FitnessTracker.model.Activity;
-import com.nghianguyen.FitnessTracker.repository.ActivityRepository;
-
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nghianguyen.FitnessTracker.model.Activity;
+import com.nghianguyen.FitnessTracker.repository.ActivityRepository;
+import com.nghianguyen.FitnessTracker.repository.SetRepository;
 
 @Service
 public class ActivityService {
 
    @Autowired
    private ActivityRepository activityRepository;
+   
+   @Autowired
+   private SetRepository setRepository;
 
    public List<Activity> getAllActivities() {
 //       List<Activity> activities = new ArrayList<Activity>();
@@ -43,6 +40,9 @@ public class ActivityService {
    }
 
    public void addActivity(Activity activity) {
+	   if (activity.getSets().size() != 0) {
+		   setRepository.save(activity.getSets().get(0));
+	   }	
        activityRepository.save(activity);
    }
 

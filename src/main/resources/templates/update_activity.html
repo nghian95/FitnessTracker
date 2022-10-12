@@ -22,9 +22,10 @@
 		th {
 			border:none;
 		}
-		input {
-		
+		#bootstrap-overrides .tableNoBorder th{
+			text-align:center;
 		}
+
 	</style>
 </head>
 <body id="bootstrap-overrides">
@@ -63,11 +64,16 @@
 <!-- 					        	<td><input class="inputSet" th:value="${eachSet.weight}"></td> -->
 <!-- 					        </tr> -->
 							<tr th:each="set, iter : *{sets}">
-								<td style="border:none" ><input class="setCell" th:value="${iter.index}+1" disabled></td>
-								<td style="border:none" ><input class="setCell" th:field="*{sets[__${iter.index}__].reps}"></td>
-								<td style="border:none" ><input class="setCell" th:field="*{sets[__${iter.index}__].weight}"></td>
+								<td><input class="setCell" th:value="${iter.index}+1" disabled></td>
+								<td><input class="setCell" th:field="*{sets[__${iter.index}__].reps}"></td>
+								<td><input class="setCell" th:field="*{sets[__${iter.index}__].weight}"></td>
 							</tr>
+<!-- 							<tr> -->
+<!-- 								<td></td> -->
+<!-- 							</tr> -->
 				        </table>
+						<button type="button" th:onclick="addRow()" value="Add Set">Add Set</button>
+				        
 <!-- 						<table th:unless="${#lists.size(activity.sets)} != 0"> -->
 <!-- 					        <tr> -->
 <!-- 					        	<th>Set</th> -->

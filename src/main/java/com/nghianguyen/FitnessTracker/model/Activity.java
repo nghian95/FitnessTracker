@@ -32,7 +32,7 @@ public class Activity {
     @ManyToOne
     private ActivityList activityList;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(
 		name = "activity_set_join",
 		joinColumns = @JoinColumn(name="activityID"),
@@ -83,6 +83,14 @@ public class Activity {
         this.activityList = activityList;
         this.comment = comment;
         sets = new ArrayList<Set>();
+        this.workout = workout;
+    }
+    
+    public Activity(ActivityList activityList, String comment, Workout workout, Set set) {
+        this.activityList = activityList;
+        this.comment = comment;
+        sets = new ArrayList<Set>();
+        sets.add(set);
         this.workout = workout;
     }
     

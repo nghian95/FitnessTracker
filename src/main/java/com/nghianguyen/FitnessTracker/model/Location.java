@@ -1,8 +1,15 @@
 package com.nghianguyen.FitnessTracker.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,11 +33,27 @@ public class Location {
     public Location() {
     	locationName = "";
     	locationAddress = "";
+    	user = new ArrayList<>();
     }
     
 	public Location(String locationName, String locationAddress) {
 		this.locationName = locationName;
 		this.locationAddress = locationAddress;
+		user = new ArrayList<>();
+	}
+	
+	public Location(String locationName, String locationAddress, List<User> user) {
+		this.locationName = locationName;
+		this.locationAddress = locationAddress;
+		this.user = user;
+	}
+	
+	public List<User> getUser() {
+		return user;
+	}
+
+	public void setUser(List<User> user) {
+		this.user = user;
 	}
 
 	public int getLocationID() {
