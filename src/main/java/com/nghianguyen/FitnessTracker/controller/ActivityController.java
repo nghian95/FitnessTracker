@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -80,6 +81,10 @@ public class ActivityController {
    public String updateActivity(@RequestParam(value="activityID") int activityID, Model model) {
 //	   model.addAttribute("activity", activity);
 	   Activity activity = activityService.getActivityById(activityID).get();
+	   List<Set> sets = activity.getSets();
+//	   for (int i = sets.size(); i < 10; i++) {
+//		   
+//	   }
 	   activity.getSets().add(new Set());
 	   model.addAttribute("activity", activity);
 	   List<ActivityList> activityLists = activityListService.getAllActivityLists();
@@ -94,8 +99,19 @@ public class ActivityController {
     */
    @PostMapping("/activity")
 //   public String addActivity(@RequestParam(name = "activityList") String activityListName, @ModelAttribute Activity activity, ModelMap model) {
-   public String addActivity(@RequestParam(value="workoutID") int workoutID, @ModelAttribute Activity activity, ModelMap model) {
+   public String addActivity(@RequestParam(value="workoutID") int workoutID, @ModelAttribute Activity activity, BindingResult result, ModelMap model) {
 	   activity.setWorkout(workoutService.getWorkoutByID(workoutID).get());
+       List<Set> sets = activity.getSets();
+//       Set set = sets.get(sets.size()-1);
+//     if ((set.getReps() == 0) && set.getWeight() == 0) {
+//	   sets.remove(set);
+//   }
+       for (int i = 0; i < sets.size(); i++) {
+    	   if ((sets.get(i).getReps() == 0) && sets.get(i).getWeight() == 0) {
+    		   sets.remove(i);
+    		   i--;
+    	   }
+       }
 	   activityService.addActivity(activity);
 	   Activity retrievedActivity = activityService.getActivityById(activity.getActivityID()).get();
 	   model.addAttribute("activity", retrievedActivity);
@@ -111,7 +127,7 @@ public class ActivityController {
     */
    @PutMapping("/updateActivity")
 //   public void updateActivity(@PathVariable("id") int id, @RequestBody Activity activity) {
-   public String updateActivity(@ModelAttribute Activity activity, Model model) {
+   public String updateActivity(@ModelAttribute Activity activity, BindingResult result, Model model) {
        Optional<Activity> activityData = activityService.getActivityById(activity.getActivityID());
 
        if (activityData.isPresent()) {
@@ -119,9 +135,15 @@ public class ActivityController {
            updateActivity.setActivityList(activity.getActivityList());
            updateActivity.setComment(activity.getComment());
            List<Set> sets = activity.getSets();
-           Set set = sets.get(sets.size()-1);
-           if ((set.getReps() == 0) && set.getWeight() == 0) {
-        	   sets.remove(set);
+//           Set set = sets.get(sets.size()-1);
+//           if ((set.getReps() == 0) && set.getWeight() == 0) {
+//        	   sets.remove(set);
+//           }
+           for (int i = 0; i < sets.size(); i++) {
+        	   if ((sets.get(i).getReps() == 0) && sets.get(i).getWeight() == 0) {
+        		   sets.remove(i);
+        		   i--;
+        	   }
            }
            updateActivity.setSets(sets);
            activityService.addActivity(updateActivity);

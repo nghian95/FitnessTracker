@@ -59,38 +59,50 @@ public class Activity {
     	this.comment = "";
     	activityList = null;
         sets = new ArrayList<Set>();
+// 	   	for (int i = sets.size(); i < 10; i++) {
+// 	   		Set set = new Set();
+// 	   		sets.add(set);
+// 	   	}
+        workout = null;
     }
 
     public Activity(String comment) {
-        this.activityList = null;
-        this.comment = comment;
-        sets = new ArrayList<Set>();
+       this();
+       this.comment = comment;
     }
     
     public Activity(ActivityList activityList) {
+    	this();
         this.activityList = activityList;
-        this.comment = "";
-        sets = new ArrayList<Set>();
     }
     
     public Activity(ActivityList activityList, String comment) {
+    	this();
         this.activityList = activityList;
         this.comment = comment;
-        sets = new ArrayList<Set>();
     }
 
     public Activity(ActivityList activityList, String comment, Workout workout) {
+    	this();
         this.activityList = activityList;
         this.comment = comment;
-        sets = new ArrayList<Set>();
         this.workout = workout;
     }
     
     public Activity(ActivityList activityList, String comment, Workout workout, Set set) {
+    	this();
         this.activityList = activityList;
         this.comment = comment;
-        sets = new ArrayList<Set>();
-        sets.add(set);
+//        sets = new ArrayList<Set>();
+//        sets.add(set);
+        sets.set(0, set);
+        this.workout = workout;
+    }
+    
+    public Activity(ActivityList activityList, String comment, Workout workout, List<Set> sets) {
+        this.activityList = activityList;
+        this.comment = comment;
+        this.sets = sets;
         this.workout = workout;
     }
     

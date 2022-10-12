@@ -30,28 +30,33 @@ function viewSingleWorkout(id) {
 function addRow() {
 	const table = document.querySelector(".tableNoBorder tbody");
 	const row = document.createElement("tr");
-	
 	const id = document.createElement("td");
 	const idInput = document.createElement("input");
 	const lastSetNum = document.querySelector(".tableNoBorder tr:last-child td:first-child input");
 	const idValue = lastSetNum.value;
 	idInput.setAttribute("class","setCell");
 	idInput.setAttribute("value", parseInt(idValue)+1);
+	
 	idInput.setAttribute("readonly","");
 	id.appendChild(idInput);
 	const reps = document.createElement("td");
 	const repsInput = document.createElement("input");
 	repsInput.setAttribute("class","setCell");
-	repsInput.setAttribute("th:name","sets["+idValue+"].reps");
+	repsInput.setAttribute("name","sets["+idValue+"].reps");
 	reps.appendChild(repsInput);
 	const weight = document.createElement("td");
 	const weightInput = document.createElement("input");
 	weightInput.setAttribute("class","setCell");
-	weightInput.setAttribute("th:name","sets["+idValue+"].weight");
+	weightInput.setAttribute("name","sets["+idValue+"].weight");
 	weight.appendChild(weightInput);
 	row.appendChild(id);
 	row.appendChild(reps);
 	row.appendChild(weight);
 	table.append(row);
+	//const set = new Set();
+	//set.reps = 5;
+	//set.weight = 10;
+	//listOfSets.push(set);
+	//idInput.setAttribute("value", listOfSets);
 }
 
