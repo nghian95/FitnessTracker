@@ -54,7 +54,9 @@ public class ActivityService {
    }
 
    /*
-    * This adds an Activity. If 
+    * This adds an Activity. If the set already exists inside of the database then we replace the set
+    * inside the Activity with the one retrieved from the database so we don't have any persistence issues
+    * or errors. If Set doesn't exist yet then it'll be saved. Then save and add the Activity with the Sets.
     */
    public void addActivity(Activity activity) {
 	   try {
@@ -63,7 +65,6 @@ public class ActivityService {
 		   for (var i = 0; i < sets.size(); i++) {
 			   Set set = sets.get(i);
 			   Integer setID = setRepository.getSetIDByProperties(set.getSetOrder(), set.getReps(), set.getWeight());
-			   System.out.println(setID);
 			   if(setID == null) {
 				   setRepository.save(sets.get(i));
 			   } else {
@@ -78,6 +79,10 @@ public class ActivityService {
    		}
    }
 
+   /*
+    * This updates the Activity retrieved from the database via the parameter id, and then
+    * updates each property if the Activity exists already. 
+    */
    public void updateActivity(Integer id, Activity activity) {
        Optional<Activity> activityData = activityRepository.findById(id);
 
@@ -90,10 +95,16 @@ public class ActivityService {
        }
    }
 
+   /*
+    * Deletes Activity based on the parameter id. 
+    */
    public void deleteActivity(Integer id) {
        activityRepository.deleteById(id);
    }
 
+   /*
+    * Deletes all Activities.
+    */
    public void deleteAllActivities() {
        activityRepository.deleteAll();
    }

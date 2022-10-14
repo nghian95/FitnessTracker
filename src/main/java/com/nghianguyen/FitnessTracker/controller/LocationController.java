@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nghianguyen.FitnessTracker.model.Location;
+import com.nghianguyen.FitnessTracker.model.User;
 import com.nghianguyen.FitnessTracker.service.LocationService;
-import com.nghianguyen.FitnessTracker.service.UserService;
+import com.nghianguyen.FitnessTracker.service.UserServiceImpl;
 
 /*
  * Controller that maps all of the CRUD operations and requests related to the Location
@@ -29,7 +30,7 @@ public class LocationController {
 	LocationService locationService;
 	
 	@Autowired
-	UserService userService;
+	UserServiceImpl userService;
 	
 	/*
 	 * Passes a list of all locations to the view via Model
@@ -100,10 +101,14 @@ public class LocationController {
 	public String updateLocation(@RequestParam(value="addUser") String addUser, @ModelAttribute Location location, Model model, Principal principal) {
 //	public String updateLocation(@ModelAttribute Location location, Model model) {
 		//You should be able to manually type a name as well 
-		if (addUser.equals("Yes")) {
-			location.getUser().add(userService.findByEmail(principal.getName()));
-		}
-		locationService.updateLocation(location.getLocationID(), location);
+		User user = userService.findByEmail(principal.getName());
+		boolean flag = addUser.equals("Yes") ? true : false;
+//		if (addUser.equals("Yes")) {
+//			location.getUser().add(userService.findByEmail(principal.getName()));
+			
+//		}
+		
+		locationService.updateLocation(location.getLocationID(), location, user, flag);
 		
 		Location retrievedLocation = locationService.getLocationByID(location.getLocationID()).get();
 		model.addAttribute("location", retrievedLocation);

@@ -30,18 +30,31 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	/*
+	 * Gets all Users in the database. 
+	 */
 	public List<User> getAllUsers(){
 		return userRepository.findAll();
 	}
 	
-	public Optional<User> getUserByEmail(String email) {
-		return userRepository.findById(email);
-	}
+	/*
+	 * Gets a specific user based on the parameter email.
+	 */
+//	public Optional<User> getUserByEmail(String email) {
+//		return userRepository.findById(email);
+//	}
 	
+	/*
+	 * Adds a user based on the parameter User passed through by the UserController.
+	 */
 	public void addUser(User user) {
 		userRepository.save(user);
 	}
 	
+	/*
+	 * User gets retrieved from database based on parameter email then if it exists then
+	 * it has its values updated with the new ones. Then it's saved and added.
+	 */
 	public void updateUser(String email, User user) {
 		Optional<User> userData = userRepository.findById(email);
 		
@@ -56,22 +69,45 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 	
+	/*
+	 * Deletes the user by parameter email.
+	 */
 	public void deleteUserByEmail(String email) {
 		userRepository.deleteById(email);
 	}
 	
+	/*
+	 * Deletes all users.
+	 */
 	public void deleteAllUsers() {
 		userRepository.deleteAll();
 	}
 
+	/*
+	 * Finds User by email. If user is found, returns it. If not, returns null. 
+	 */
 	public User findByEmail(String email){
-		return userRepository.findByEmail(email);
+//		return userRepository.findByEmail(email);
+		Optional<User> user = userRepository.findById(email);
+		if (user.isPresent()) {
+			return user.get();
+		} else {
+			return null;
+		}
 	}
 	
-	
+	/*
+	 * Implementing the loadUserByUsername for UserDetailsService interface. 
+	 * If User is present in the database UserDetails is returned with email, password and authorities.
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(email);
+//		User user = userRepository.findByEmail(email);
+		Optional<User> optionalUser = userRepository.findById(email);
+		User user = null;
+		if (optionalUser.isPresent()) {
+			user = optionalUser.get();
+		}
 		if (user == null){
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
@@ -80,12 +116,19 @@ public class UserServiceImpl implements UserService{
 				mapRolesToAuthorities(user.getRoles()));
 	}
 	
+	/*
+	 * Turns the Collection of roles into a list of SimpleGrantedAuthority(s)
+	 */
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
 		return roles.stream()
                .map(role -> new SimpleGrantedAuthority(role.getName()))
                .collect(Collectors.toList());
 	}
 	
+	/*
+	 * Gets the relevant User details from UserRegistrationDto parameter registration and encodes
+	 * the password with passwordEncoder. Sets role as a User and saves the new user.
+	 */
 	@Override
 	public User save(UserRegistrationDto registration) {
 		User user = new User();

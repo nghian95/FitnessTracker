@@ -1,6 +1,8 @@
 package com.nghianguyen.FitnessTracker.model;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 
 import javax.persistence.*;
@@ -38,7 +40,7 @@ public class User {
 	@Column
 	@ManyToMany
 	@JsonIgnore
-	private List<Location> locations;
+	private Set<Location> locations;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	   @JoinTable(
@@ -54,9 +56,12 @@ public class User {
 		firstName = "";
 		lastName = "";
 		phoneNumber = 0;
+		locations = new HashSet<>();
+		roles = null;
 	}
 
 	public User(String password, String firstName, String lastName, int phoneNumber) {
+		this();
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -73,11 +78,12 @@ public class User {
 	
 	
 	
-	public List<Location> getLocations() {
+//	public List<Location> getLocations() {
+	public Set<Location> getLocations() {
 		return locations;
 	}
 
-	public void setLocations(List<Location> locations) {
+	public void setLocations(Set<Location> locations) {
 		this.locations = locations;
 	}
 
@@ -136,6 +142,7 @@ public class User {
 				", firstName=" + firstName + 
 				", lastName=" + lastName + 
 				", phoneNumber=" + phoneNumber + "]" +
+				", locations=" + locations +
                 ", roles=" + roles +
                 '}';
 	}
