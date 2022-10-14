@@ -9,9 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nghianguyen.FitnessTracker.model.Activity;
+import com.nghianguyen.FitnessTracker.model.Set;
 import com.nghianguyen.FitnessTracker.repository.ActivityRepository;
 import com.nghianguyen.FitnessTracker.repository.SetRepository;
 
+/*
+ * This is the implementation for any CRUD methods in relation to Activity entity.
+ * Uses the ActivityRepository mainly for implementation.
+ */
 @Service
 public class ActivityService {
 
@@ -21,6 +26,9 @@ public class ActivityService {
    @Autowired
    private SetRepository setRepository;
 
+   /*
+    * Gets all Activities and returns it by using findAll() method.
+    */
    public List<Activity> getAllActivities() {
 //       List<Activity> activities = new ArrayList<Activity>();
 //       activityRepository.findAll().forEach(activities::add);
@@ -28,22 +36,46 @@ public class ActivityService {
 //       return activities;
    }
    
+   /*
+    * Gets a collection of Activities in a specific Workout. The Workout in question is
+    * retrieved based on the workoutID.
+    */
    public Collection<Activity> findActivitiesInWorkout(int id) {
 	   return activityRepository.findActivitiesInWorkout(id);
    }
 
-
+   /*
+    * Gets Activity by id and returns the the activity with the Sets sorted.
+    */
    public Optional<Activity> getActivityById(Integer id) {
         Optional<Activity> activity = activityRepository.findById(id);
         Collections.sort(activity.get().getSets());
         return activity;
    }
 
+   /*
+    * This adds an Activity. If 
+    */
    public void addActivity(Activity activity) {
-	   if (activity.getSets().size() != 0) {
-		   setRepository.save(activity.getSets().get(0));
-	   }	
-       activityRepository.save(activity);
+	   try {
+		   List<Set> sets = activity.getSets();
+	   
+		   for (var i = 0; i < sets.size(); i++) {
+			   Set set = sets.get(i);
+			   Integer setID = setRepository.getSetIDByProperties(set.getSetOrder(), set.getReps(), set.getWeight());
+			   System.out.println(setID);
+			   if(setID == null) {
+				   setRepository.save(sets.get(i));
+			   } else {
+				   set = setRepository.getById(setID);
+				   sets.set(i, set);
+			   }
+		   }
+		   activity.setSets(sets);
+	       activityRepository.save(activity);
+   		} catch(Exception e) {
+   			System.out.println(e);
+   		}
    }
 
    public void updateActivity(Integer id, Activity activity) {

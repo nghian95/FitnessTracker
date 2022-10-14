@@ -1,7 +1,10 @@
 package com.nghianguyen.FitnessTracker.model;
 
 import javax.persistence.*;
-
+/*
+ * ActivityList class that uses @Entity to generate the database tables via Hibernate.
+ * Has column constraints added via annotations @Column
+ */
 @Entity
 @Table(name = "activityList")
 public class ActivityList {

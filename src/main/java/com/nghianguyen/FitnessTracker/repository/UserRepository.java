@@ -7,10 +7,11 @@ import com.nghianguyen.FitnessTracker.model.User;
 
 import java.util.List;
 import java.util.Optional;
-
+/*
+ * Provides the basic CRUD methods via JPARepository for User
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, String>
 {
-//	List<Activity> findByPublished(boolean published);
 	User findByEmail(String email);
 }

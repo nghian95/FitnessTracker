@@ -7,7 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.nghianguyen.FitnessTracker.model.Workout;
-
+/*
+ * Provides the basic CRUD methods via JPARepository for Workout.
+ * Includes custom query to select all workouts that are related to specific email
+ */
 @Repository
 public interface WorkoutRepository extends JpaRepository<Workout, Integer>
 {

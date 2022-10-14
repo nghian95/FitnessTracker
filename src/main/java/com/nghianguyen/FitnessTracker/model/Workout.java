@@ -16,6 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/*
+ * Workout class that uses @Entity to create the database table via Hibernate.
+ * @ManyToOne relationships with Location and User. @OneToMany relationship with Activity.
+ */
 @Entity
 @Table(name = "workout")
 public class Workout {

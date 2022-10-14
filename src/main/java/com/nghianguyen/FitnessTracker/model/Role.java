@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/*
+ * Role class that is used in conjunction with User class to determine what
+ * web pages will be available to them. Admin and User - to be implemented still.
+ */
 @Entity
 public class Role {
    @Id

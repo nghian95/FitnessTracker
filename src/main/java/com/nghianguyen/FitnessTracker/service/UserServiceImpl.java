@@ -19,6 +19,9 @@ import com.nghianguyen.FitnessTracker.model.User;
 import com.nghianguyen.FitnessTracker.repository.UserRepository;
 import com.nghianguyen.FitnessTracker.security.UserRegistrationDto;
 
+/*
+ * Implementation of the UserService. Includes implementation of CRUD operations for User
+ */
 @Service
 public class UserServiceImpl implements UserService{
 	@Autowired

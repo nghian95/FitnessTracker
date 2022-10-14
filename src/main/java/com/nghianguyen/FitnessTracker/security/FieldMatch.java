@@ -9,6 +9,11 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/*
+ * Custom Validator that will check if our form fields match. message() is what shows up when 
+ * validation isn't passed. @Constraint defines that this will validate our fields. Validated 
+ * by class FieldMatchValidator.
+ */
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = FieldMatchValidator.class)

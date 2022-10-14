@@ -4,6 +4,10 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+/*
+ * Adds default constraints to the fields in the form along with adding the FieldMatch for custom
+ * validation that our fields match. 
+ */
 @FieldMatch.List({
     @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
     @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")

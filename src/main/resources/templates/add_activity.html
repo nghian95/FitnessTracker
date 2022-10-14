@@ -59,7 +59,7 @@
 					        </tr>
 <!-- 							<tr th:each="set, iter : *{sets}" th:if="${activity} != null"> -->
 							<tr>
-								<td style="border:none" ><input class="setCell" th:value="1" disabled ></td>
+								<td style="border:none" ><input class="setCell" th:name="sets[0].setOrder" th:value="1"></td>
 								<td style="border:none" ><input class="setCell" th:name="sets[0].reps" th:value="0"></td>
 								<td style="border:none" ><input class="setCell" th:name="sets[0].weight" th:value="0"></td>
 								<td><button type="button" th:onclick="this.parentElement.parentElement.remove()" value="Delete Set">X</button></td>

@@ -81,11 +81,11 @@ public class ActivityController {
    public String updateActivity(@RequestParam(value="activityID") int activityID, Model model) {
 //	   model.addAttribute("activity", activity);
 	   Activity activity = activityService.getActivityById(activityID).get();
-	   List<Set> sets = activity.getSets();
+//	   List<Set> sets = activity.getSets();
 //	   for (int i = sets.size(); i < 10; i++) {
 //		   
 //	   }
-	   activity.getSets().add(new Set());
+//	   activity.getSets().add(new Set());
 	   model.addAttribute("activity", activity);
 	   List<ActivityList> activityLists = activityListService.getAllActivityLists();
 	   model.addAttribute("activityLists",activityLists);

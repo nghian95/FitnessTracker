@@ -7,6 +7,10 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/*
+ * @Entity used to generate the related Entity in database via Hibernate. 
+ * Includes @ManyToMany relationship with Location and Role.
+ */
 @Entity
 @Table(name = "user")
 public class User {

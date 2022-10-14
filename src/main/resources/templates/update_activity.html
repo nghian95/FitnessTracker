@@ -67,7 +67,7 @@
 <!-- 					        	<td><input class="inputSet" th:value="${eachSet.weight}"></td> -->
 <!-- 					        </tr> -->
 							<tr th:each="set, iter : *{sets}">
-								<td><input class="setCell" th:value="${iter.index}+1" disabled></td>
+								<td><input class="setCell" th:field="*{sets[__${iter.index}__].setOrder}" readonly></td>
 								<td><input class="setCell" th:field="*{sets[__${iter.index}__].reps}"></td>
 								<td><input class="setCell" th:field="*{sets[__${iter.index}__].weight}"></td>
 								<td><button type="button" th:onclick="this.parentElement.parentElement.remove()" value="Delete Set">X</button></td>

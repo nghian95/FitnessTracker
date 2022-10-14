@@ -12,6 +12,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.nghianguyen.FitnessTracker.service.UserServiceImpl;
 
+/*
+ * Configures what pages and resources are available in the configure() method that's 
+ * overridden from WebSecurityConfigureAdapter class. Allows /registration and /login
+ * along with static files.
+ */
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 // We will create userService class in upcoming step
@@ -25,6 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                    .antMatchers(
                            "/registration**",
                            "/js/**",
+                           "/script/**",
                            "/css/**",
                            "/img/**",
                            "/webjars/**").permitAll()
@@ -42,11 +48,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                .permitAll();
    }
 
+   /*
+    * Instantiates the BCrypt encoder for the password.
+    */
    @Bean
    public BCryptPasswordEncoder passwordEncoder(){
        return new BCryptPasswordEncoder();
    }
 
+   /*
+    * AuthenticationProvider that retrieves user details and the password encoder.
+    */
    @Bean
    public DaoAuthenticationProvider authenticationProvider(){
        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -55,6 +67,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
        return auth;
    }
 
+   /*
+    * Sets the AuthenticationProvider for the AuthenticationManagerBuilder. Allows for easy
+    * building for authentication.
+    */
    @Override
    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
        auth.authenticationProvider(authenticationProvider());

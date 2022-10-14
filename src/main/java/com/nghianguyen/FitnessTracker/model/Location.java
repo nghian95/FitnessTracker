@@ -12,7 +12,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+/*
+ * Location class that uses @Entity to generate the database table via Hibernate.
+ * Has @ManyToMany relationship with User and @Column properties
+ */
 @Entity
 @Table(name = "location")
 public class Location {

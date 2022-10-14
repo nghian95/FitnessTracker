@@ -40,8 +40,8 @@ function addRow() {
 		idValue = lastSetNum.value;
 	}
 	idInput.setAttribute("class","setCell");
+	idInput.setAttribute("name", "sets["+idValue+"].setOrder");
 	idInput.setAttribute("value", parseInt(idValue)+1);
-	
 	idInput.setAttribute("readonly","");
 	id.appendChild(idInput);
 	const reps = document.createElement("td");

@@ -19,7 +19,10 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+/*
+ * Activity class with @Entity to create it in the database through Hibernate. 
+ * Includes relationships with other entities ActivityList, Set, and Workout.
+ */
 @Entity
 @Table(name = "activity")
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "sets"})
@@ -63,7 +66,7 @@ public class Activity {
 // 	   		Set set = new Set();
 // 	   		sets.add(set);
 // 	   	}
-        workout = null;
+        workout = new Workout();
     }
 
     public Activity(String comment) {
