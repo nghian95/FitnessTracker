@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 	<meta charset="ISO-8859-1">
 </head>
@@ -10,8 +11,8 @@
 	    </div>
 	    <ul class="nav navbar-nav">
 	      <!-- <li class="active"><a href="">Home</a></li> -->
-	      <li><a th:href="@{/activity}">Activities</a></li>
-	      <li><a th:href="@{/addActivity}">Add Activity</a></li>
+<!-- 	      <li><a th:href="@{/activity}">Activities</a></li> -->
+<!-- 	      <li><a th:href="@{/addActivity}">Add Activity</a></li> -->
 	      <li><a th:href="@{/workout}">Workouts</a></li>
 	      <li><a th:href="@{/addWorkout}">Add Workout</a></li>
 	      <li><a th:href="@{/location}">Locations</a></li>
@@ -21,6 +22,7 @@
 <!-- 	      <li class="form-group"> -->
 <!-- 	        <input type="search" class="form-control" id="search" placeholder="Search BGG"> -->
 <!-- 	      </li> -->
+	      <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 	    </ul>
  	</nav>
 </body>

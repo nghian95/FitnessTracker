@@ -15,10 +15,14 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+/*
+ * Activity class with @Entity to create it in the database through Hibernate. 
+ * Includes relationships with other entities ActivityList, Set, and Workout.
+ */
 @Entity
 @Table(name = "activity")
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "sets"})
@@ -31,7 +35,7 @@ public class Activity {
     @ManyToOne
     private ActivityList activityList;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(
 		name = "activity_set_join",
 		joinColumns = @JoinColumn(name="activityID"),
@@ -40,6 +44,7 @@ public class Activity {
 	@JsonIgnore
     private List<Set> sets;
 	
+	@NotNull
 	@ManyToOne
 	private Workout workout;
 
@@ -57,25 +62,60 @@ public class Activity {
     	this.comment = "";
     	activityList = null;
         sets = new ArrayList<Set>();
+// 	   	for (int i = sets.size(); i < 10; i++) {
+// 	   		Set set = new Set();
+// 	   		sets.add(set);
+// 	   	}
+        workout = new Workout();
     }
 
     public Activity(String comment) {
-        this.activityList = null;
-        this.comment = comment;
-        sets = new ArrayList<Set>();
+       this();
+       this.comment = comment;
     }
     
     public Activity(ActivityList activityList) {
+    	this();
         this.activityList = activityList;
-        this.comment = "";
-        sets = new ArrayList<Set>();
     }
     
     public Activity(ActivityList activityList, String comment) {
+    	this();
         this.activityList = activityList;
         this.comment = comment;
-        sets = new ArrayList<Set>();
     }
+
+    public Activity(ActivityList activityList, String comment, Workout workout) {
+    	this();
+        this.activityList = activityList;
+        this.comment = comment;
+        this.workout = workout;
+    }
+    
+    public Activity(ActivityList activityList, String comment, Workout workout, Set set) {
+    	this();
+        this.activityList = activityList;
+        this.comment = comment;
+//        sets = new ArrayList<Set>();
+//        sets.add(set);
+        sets.set(0, set);
+        this.workout = workout;
+    }
+    
+    public Activity(ActivityList activityList, String comment, Workout workout, List<Set> sets) {
+        this.activityList = activityList;
+        this.comment = comment;
+        this.sets = sets;
+        this.workout = workout;
+    }
+    
+	public Workout getWorkout() {
+		return workout;
+	}
+
+	public void setWorkout(Workout workout) {
+		this.workout = workout;
+	}
 
 	public int getActivityID() {
 		return activityID;

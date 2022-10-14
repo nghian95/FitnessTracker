@@ -1,16 +1,19 @@
 package com.nghianguyen.FitnessTracker.repository;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.nghianguyen.FitnessTracker.model.Workout;
-
-import java.util.List;
-import java.util.Optional;
-
+/*
+ * Provides the basic CRUD methods via JPARepository for Workout.
+ * Includes custom query to select all workouts that are related to specific email
+ */
 @Repository
 public interface WorkoutRepository extends JpaRepository<Workout, Integer>
-// Tutorial → Entity type and Long --> primary key
 {
-//	List<Activity> findByPublished(boolean published);
+	@Query("SELECT w FROM Workout w WHERE w.user.email = :email")
+	Collection<Workout> findWorkoutsByUser(String email);
 }

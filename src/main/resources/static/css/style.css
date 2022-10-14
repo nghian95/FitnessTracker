@@ -30,9 +30,18 @@ input, h1 {
 .setCell {
 	width: 4rem;
 /* 	margin: .2rem 1rem .2rem 1rem; */
+	text-align:center;
 }
 
 #bootstrap-overrides .updateTable td{
 /* 	margin: .2rem 1rem .2rem 1rem; */
 	padding: .2rem 1rem .2rem 1rem;
 }
+
+#bootstrap-overrides .tableNoBorder td {
+	border:none;
+}
+
+/* #bootstrap-overrides .tableNoBorder tr:last-child td:first-child input{ */
+/* 	background-color:blue; */
+/* } */

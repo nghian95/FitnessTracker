@@ -8,9 +8,10 @@ import com.nghianguyen.FitnessTracker.model.ActivityList;
 import java.util.List;
 import java.util.Optional;
 
+/*
+ * Provides the basic CRUD methods via JPARepository for ActivityList
+ */
 @Repository
 public interface ActivityListRepository extends JpaRepository<ActivityList, Integer>
-// Tutorial → Entity type and Long --> primary key
 {
-//	List<Activity> findByPublished(boolean published);
 }

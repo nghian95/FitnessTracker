@@ -17,13 +17,19 @@ import com.nghianguyen.FitnessTracker.repository.ActivityRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+/*
+ * Utilizes the ActivityListRepository's CRUD operations to make changes
+ * to ActivityList entities.
+ */
 @Service
 public class ActivityListService {
 
    @Autowired
    private ActivityListRepository activityListRepository;
 
+   /*
+    * Gets all ActivityLists in the database by using the ActivityListRepository
+    */
    public List<ActivityList> getAllActivityLists() {
 //       List<Activity> activities = new ArrayList<Activity>();
 //       activityRepository.findAll().forEach(activities::add);
@@ -31,14 +37,26 @@ public class ActivityListService {
 //       return activities;
    }
 
+   /*
+    * Returns an Optional<ActivityList> based on an Integer id. If data was retrieved can 
+    * use .get() on the Optional<> otherwise it's null.
+    */
    public Optional<ActivityList> getActivityListByID(Integer id) {
         return activityListRepository.findById(id);
    }
    
+   /*
+    * ActivityListRepository method used to add / save a new Activity List which is passed
+    * as an argument.
+    */
    public void addActivityList(ActivityList activityList) {
 	   activityListRepository.save(activityList);
    }
 
+   /*
+    * Updates the ActivityList with the provided id and new properties.
+    * Uses save() method to save the changes.
+    */
    public void updateActivityList(Integer id, ActivityList activityList) {
        Optional<ActivityList> activityListData = activityListRepository.findById(id);
 
@@ -52,10 +70,16 @@ public class ActivityListService {
        }
    }
 
+   /*
+    * Based on the parameter Integer id the ActivityList is deleted from the database.
+    */
    public void deleteActivityList(Integer id) {
 	   activityListRepository.deleteById(id);
    }
 
+   /*
+    * Deletes all of the ActivityLists available through the ActivityListRepository.
+    */
    public void deleteAllActivityLists() {
 	   activityListRepository.deleteAll();
    }

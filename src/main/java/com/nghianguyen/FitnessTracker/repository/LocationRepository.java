@@ -7,10 +7,10 @@ import com.nghianguyen.FitnessTracker.model.Location;
 
 import java.util.List;
 import java.util.Optional;
-
+/*
+ * Provides the basic CRUD methods via JPARepository for Location
+ */
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer>
-// Tutorial → Entity type and Long --> primary key
 {
-//	List<Activity> findByPublished(boolean published);
 }

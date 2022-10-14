@@ -10,15 +10,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/*
+ * Set is annotated with @Entity to create the entity in the database via Hibernate.
+ * Includes @ManyToMany relationship with Activity.
+ */
 @Entity
-@Table(name = "activitySet")
+@Table(
+	name = "activitySet", //has to be activitySet has the Set keyword has issues in SQL
+	uniqueConstraints= 
+		@UniqueConstraint(columnNames= {"reps","weight","setOrder"})
+)
 public class Set implements Comparable<Set>{
 	@Id 
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int setID;
+	
+	@Column
+	private int setOrder;
 	
 	@Column
 	private int reps;
@@ -31,15 +43,29 @@ public class Set implements Comparable<Set>{
 	private List<Activity> activity;
 	
 	public Set() {
+		setOrder = 1;
 		reps = 0;
 		weight = 0;
 		activity = new ArrayList<>();
 	}
 	
 	public Set(int reps, int weight) {
+		this();
 		this.reps = reps;
 		this.weight = weight;
-		activity = new ArrayList<>();
+	}
+
+	public Set(int setOrder, int reps, int weight) {
+		this(reps, weight);
+		this.setOrder = setOrder;
+	}
+	
+	public int getSetOrder() {
+		return setOrder;
+	}
+
+	public void setSetOrder(int setOrder) {
+		this.setOrder = setOrder;
 	}
 
 	public int getSetID() {
@@ -79,6 +105,18 @@ public class Set implements Comparable<Set>{
 	}
 	
 	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+
+	@Override
 	public String toString() {
 		return "Set [setID=" + setID + ", reps=" + reps + ", weight=" + weight + ", activity=" + activity + "]";
 	}
@@ -86,7 +124,7 @@ public class Set implements Comparable<Set>{
 	@Override
 	public int compareTo(Set s) {
 		// TODO Auto-generated method stub
-		return this.getSetID() - s.getSetID(); 
+		return this.getSetOrder() - s.getSetOrder(); 
 	}
 	
 	
