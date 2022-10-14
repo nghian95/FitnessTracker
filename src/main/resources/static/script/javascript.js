@@ -20,6 +20,21 @@ $(document).ready(function() {
 	for (var i = 0, j = confirmElems.length; i < j; i++) {
 		confirmElems[i].addEventListener('click', confirmIt, false);
 	}
+	
+	var activityListOptions = document.querySelectorAll("#activityList option");
+	for (var i = 0; i < activityListOptions.length; i++) {
+		if (activityListOptions[i].getAttribute("value") == activityListID) {
+			activityListOptions[i].setAttribute("selected","");
+		}
+	}
+	
+	var locationOptions = document.querySelectorAll("#locationSelect option");
+	for (var i = 0; i < locationOptions.length; i++) {
+		if (locationOptions[i].getAttribute("value") == locationID) {
+			locationOptions[i].setAttribute("selected","");
+		}
+	}
+		
 });
 
 function viewSingleWorkout(id) {
@@ -48,11 +63,13 @@ function addRow() {
 	const repsInput = document.createElement("input");
 	repsInput.setAttribute("class","setCell");
 	repsInput.setAttribute("name","sets["+idValue+"].reps");
+	repsInput.setAttribute("value",0);
 	reps.appendChild(repsInput);
 	const weight = document.createElement("td");
 	const weightInput = document.createElement("input");
 	weightInput.setAttribute("class","setCell");
 	weightInput.setAttribute("name","sets["+idValue+"].weight");
+	weightInput.setAttribute("value",0);
 	weight.appendChild(weightInput);
 	const x = document.createElement("td");
 	const xButton = document.createElement("button");
@@ -65,11 +82,6 @@ function addRow() {
 	row.appendChild(weight);
 	row.appendChild(x);
 	table.append(row);
-	//const set = new Set();
-	//set.reps = 5;
-	//set.weight = 10;
-	//listOfSets.push(set);
-	//idInput.setAttribute("value", listOfSets);
 }
 /*
 function deleteRow() {

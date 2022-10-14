@@ -43,7 +43,7 @@ public class Set implements Comparable<Set>{
 	private List<Activity> activity;
 	
 	public Set() {
-		setOrder = 0;
+		setOrder = 1;
 		reps = 0;
 		weight = 0;
 		activity = new ArrayList<>();

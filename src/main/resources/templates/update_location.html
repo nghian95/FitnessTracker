@@ -40,8 +40,8 @@
 		        <tr>
 		            <td><label path="locationName">Location Name</label></td>
 		            <td>
-		            	<select name="locationName">
-		            		<option disabled selected>Select Location</option>
+		            	<select name="locationName" required>
+		            		<option disabled selected value="">Select Location</option>
 		            		<option th:each="locationNm: ${locationNames}" th:text="${locationNm}" th:value="${locationNm}"></option>
 		            	</select>
 		            </td>

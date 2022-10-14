@@ -12,10 +12,11 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  	 <!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script th:inline="javascript" defer>
+ 		var activityListID = [[${activity.activityList.activityListID}]];
+//  		console.log(activityListID);
+	</script>
 	<script type="text/javascript" th:src="@{/script/javascript.js}" defer></script>
-<!-- 	<script th:inline="javascript" defer> -->
-<!-- // 		var listOfSets = [[${activity.sets}]]; -->
-<!-- 	</script> -->
 	<style>
 		#bootstrap-overrides .tableNoBorder {
 			border: none;
@@ -45,8 +46,8 @@
 		            <td><label path="activityList">Workout Activity:</label></td>
 	<!-- 	            <td><input type="text" name="activityListName" /></td> -->
 		            <td>
-		            	<select name="activityList">
-		            		<option disabled selected>Select Activity</option>
+		            	<select id="activityList" name="activityList" required>
+		            		<option disabled selected value="">Select Activity</option>
 		            		<option th:each="activityLst: ${activityLists}" th:text="${activityLst.activityName}" th:value="${activityLst.activityListID}"></option>
 		            	</select>
 		            </td>
