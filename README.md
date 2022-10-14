@@ -28,6 +28,7 @@ And then if you click on a single workout you'll bring up the list of activities
 ![single workout with activities](src/main/resources/static/img/single_workout.png)
 
 You can either add or update activities here, or even update or delete the workout itself. Here's what updating an activity would look like:
+
 ![updating activity](src/main/resources/static/img/update_activity.png)
 
 Which includes Sets you can add or remove, list of exercises to choose from and a comment section. 
