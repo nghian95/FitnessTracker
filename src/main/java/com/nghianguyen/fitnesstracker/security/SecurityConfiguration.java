@@ -7,7 +7,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.nghianguyen.fitnesstracker.service.UserServiceImpl;
@@ -46,6 +48,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                        .logoutSuccessUrl("/login?logout")
                .permitAll();
+       
+       http.sessionManagement()
+       		.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+       
+       http.sessionManagement().maximumSessions(1).expiredUrl("/sessionExpired.html");
+       
+//       http.sessionManagement()
+//	       .invalidSessionUrl("/invalidSession.html");
    }
 
    /*
@@ -74,6 +84,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    @Override
    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
        auth.authenticationProvider(authenticationProvider());
+   }
+   
+   /*
+    * Adds a listener that gets notified when the session is destroyed.
+    */
+   @Bean
+   public HttpSessionEventPublisher httpSessionEventPublisher() {
+       return new HttpSessionEventPublisher();
    }
 
 }

@@ -22,6 +22,10 @@ public class FrontController {
         return "login";
     }
     
+//    @GetMapping("/invalidSession")
+//    public String invalid(Model model) {
+//        return "invalidSession";
+//    }
 //    @GetMapping("/user")
 //    public String userIndex() {
 //        return "user/index";

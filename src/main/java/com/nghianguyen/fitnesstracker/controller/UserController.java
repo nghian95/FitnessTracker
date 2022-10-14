@@ -89,6 +89,7 @@ public class UserController {
 		}
 
 		userService.save(userDto);
-       	return "redirect:/registration?success";
+		String URL = "redirect:/registration?success";
+       	return URL;
 	}
 }

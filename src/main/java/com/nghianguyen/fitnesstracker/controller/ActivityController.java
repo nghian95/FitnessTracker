@@ -114,7 +114,8 @@ public class ActivityController {
 	   activityService.addActivity(activity);
 	   Activity retrievedActivity = activityService.getActivityById(activity.getActivityID()).get();
 	   model.addAttribute("activity", retrievedActivity);
-	   return "redirect:/workout/" + workoutID;
+	   String URL = "redirect:/workout/" + workoutID;
+	   return URL;
    }
 
    /*
