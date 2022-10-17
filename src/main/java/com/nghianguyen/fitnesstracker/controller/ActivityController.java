@@ -23,12 +23,18 @@ import com.nghianguyen.fitnesstracker.model.Workout;
 import com.nghianguyen.fitnesstracker.service.ActivityListService;
 import com.nghianguyen.fitnesstracker.service.ActivityService;
 import com.nghianguyen.fitnesstracker.service.WorkoutService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /*
  * 	Controller for any Activity related mappings and methods. CRUD Operations for Activity.
  */
 @Controller
 public class ActivityController {
 
+	private static final Logger log = LoggerFactory.getLogger(ActivityController.class);
+	
 	@Autowired
     private ActivityService activityService; 
 	

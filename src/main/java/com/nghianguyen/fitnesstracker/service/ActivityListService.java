@@ -31,10 +31,7 @@ public class ActivityListService {
     * Gets all ActivityLists in the database by using the ActivityListRepository
     */
    public List<ActivityList> getAllActivityLists() {
-//       List<Activity> activities = new ArrayList<Activity>();
-//       activityRepository.findAll().forEach(activities::add);
 	   return activityListRepository.findAll();
-//       return activities;
    }
 
    /*

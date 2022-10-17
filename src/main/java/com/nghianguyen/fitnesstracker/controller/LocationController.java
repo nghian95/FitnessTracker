@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ import com.nghianguyen.fitnesstracker.service.UserServiceImpl;
  */
 @Controller
 public class LocationController {
+	
+	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
+	
 	@Autowired
 	LocationService locationService;
 	
@@ -38,6 +43,7 @@ public class LocationController {
 	@GetMapping("/location")
 	public String getAllLocations(Model model) {
 		model.addAttribute("locations", locationService.getAllLocations());
+		log.info("Getting all locations");
 		return "list_of_locations";
 	}
 	
