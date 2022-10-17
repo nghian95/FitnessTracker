@@ -110,7 +110,7 @@ public class WorkoutController {
 	 */
 	@PostMapping("/workout")
 	public String addWorkout(@ModelAttribute Workout workout, Model model, Principal principal) {
-		User user = userServiceImpl.findByEmail(principal.getName());
+		User user = userServiceImpl.findByEmail(principal.getName()).get();
 		workout.setUser(user);
 		workoutService.addWorkout(workout);
 		Workout retrievedWorkout = workoutService.getWorkoutByID(workout.getWorkoutID()).get();

@@ -24,7 +24,7 @@ public class ActivityService {
    private ActivityRepository activityRepository;
    
    @Autowired
-   private SetRepository setRepository;
+   private SetService setService;
 
    /*
     * Gets all Activities and returns it by using findAll() method.
@@ -64,11 +64,11 @@ public class ActivityService {
 		   if (sets.size() != 0) {
 			   for (var i = 0; i < sets.size(); i++) {
 				   Set set = sets.get(i);
-				   Integer setID = setRepository.getSetIDByProperties(set.getSetOrder(), set.getReps(), set.getWeight());
+				   Integer setID = setService.getSetIDByProperties(set.getSetOrder(), set.getReps(), set.getWeight());
 				   if(setID == null) {
-					   setRepository.save(sets.get(i));
+					   setService.addSet(sets.get(i));
 				   } else {
-					   set = setRepository.getById(setID);
+					   set = setService.getSetByID(setID).get();
 					   sets.set(i, set);
 				   }
 			   }

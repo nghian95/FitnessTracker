@@ -60,15 +60,23 @@ public class User {
 		roles = null;
 	}
 
-	public User(String password, String firstName, String lastName, int phoneNumber) {
+	public User(String email, String password, String firstName, String lastName, int phoneNumber) {
 		this();
+		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 	}
 
-	public User(String password, String firstName, String lastName, int phoneNumber, Collection<Role> roles) {
+	public User(String email, String password, String firstName, String lastName, int phoneNumber, Location location) {
+		this(email, password, firstName, lastName, phoneNumber);
+		this.locations.add(location);
+	}
+	
+	public User(String email, String password, String firstName, String lastName, int phoneNumber, Collection<Role> roles) {
+		this();
+		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;

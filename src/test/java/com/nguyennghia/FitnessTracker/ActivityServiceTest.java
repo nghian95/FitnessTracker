@@ -18,6 +18,9 @@ import com.nghianguyen.fitnesstracker.service.ActivityListService;
 import com.nghianguyen.fitnesstracker.service.ActivityService;
 import com.nghianguyen.fitnesstracker.service.WorkoutService;
 
+/*
+ * Tests related to ActivityService
+ */
 @SpringBootTest(classes = FitnessTrackerApplication.class)
 class ActivityServiceTest {
 	@Autowired
@@ -37,24 +40,20 @@ class ActivityServiceTest {
 //		}
 //	}
 	
+	/*
+	 * Tests the query to find all activities in a workout and makes sure it's not null.
+	 */
 	@Test
 	void testFindActivitiesInWorkout() {
-//		ActivityList activityList1 = new ActivityList(1, "Barbell Flat Bench Press", "Lying on a flat bench,"
-//				+ "pressing a barbell weight upwards with both hands. Lower the barbell to chest level until "
-//				+ "it touches the chest, then press upwards extending arms out until the elbows are locked out."
-//				,"Chest", null);
-//		ActivityList activityList1 = 
-		
-//		Workout workout = workoutService.getWorkoutByID(124).get();
-//		Activity activity1 = new Activity(131, "Barbell", workout);
-//		Activity activity2 
-		
 		Collection<Activity> listOfActivities = activityService.findActivitiesInWorkout(124);
 		Assertions.assertNotNull(listOfActivities);
 		Assertions.assertTrue(listOfActivities.size() == 4);
 		
 	}
 	
+	/*
+	 * Tests getting Activity by ID and compares the values.
+	 */
 	@Test
 	void testGetActivityByID() {
 		Optional<Activity> actualActivityData = activityService.getActivityById(131);
@@ -76,8 +75,11 @@ class ActivityServiceTest {
 		Assertions.assertNotNull(expectedActivity.getWorkout());
 	}
 
+	/*
+	 * Tests a variety of methods: addActivity(), findLastAddedActivity(), deleteActivity()
+	 */
 	@Test
-	void testAddActivityAndFindLastAddedActivity() {
+	void testAddActivityAndFindLastAddedActivityAndDelete() {
 		Workout workout = workoutService.getWorkoutByID(124).get();
 		Activity activity = new Activity("this was added via JUnit testing", workout);
 		activityService.addActivity(activity);
@@ -88,6 +90,8 @@ class ActivityServiceTest {
 		Assertions.assertEquals(activity.getComment(), retrievedActivity.getComment());
 		Assertions.assertNotNull(activity.getWorkout());
 		activityService.deleteActivity(activity.getActivityID());
+		retrievedActivity = activityService.findLastAddedActivity().get();
+		Assertions.assertNotEquals(activity.getActivityID(), retrievedActivity.getActivityID());
 	}
 	
 }

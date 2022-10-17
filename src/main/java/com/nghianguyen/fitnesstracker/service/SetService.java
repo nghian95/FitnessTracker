@@ -18,9 +18,9 @@ import com.nghianguyen.fitnesstracker.repository.SetRepository;
 @Service
 public class SetService {
 	
-//	@Autowired
-//	SetRepository setRepository;
-//	
+	@Autowired
+	SetRepository setRepository;
+	
 //	@Autowired
 //	ActivityRepository activityRepository;
 //	
@@ -28,17 +28,17 @@ public class SetService {
 //		return setRepository.findAll();
 //	}
 //	
-//	public Optional<Set> getSetByID(Integer id) {
-//		return setRepository.findById(id);
-//	}
-//	
-//	public int getSetIDByProperties(int setOrder, int reps, int weight) {
-//		return setRepository.getSetIDByProperties(setOrder, reps, weight);
-//	}
-//	
-//	public void addSet(Set set) {
-//		setRepository.save(set);
-//	}
+	public Optional<Set> getSetByID(Integer id) {
+		return setRepository.findById(id);
+	}
+	
+	public int getSetIDByProperties(int setOrder, int reps, int weight) {
+		return setRepository.getSetIDByProperties(setOrder, reps, weight);
+	}
+	
+	public void addSet(Set set) {
+		setRepository.save(set);
+	}
 //	
 //	public void updateSet(Integer id, Set set) {
 //		Optional<Set> setData = setRepository.findById(id);

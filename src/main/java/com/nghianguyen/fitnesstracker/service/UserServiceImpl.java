@@ -86,14 +86,15 @@ public class UserServiceImpl implements UserService{
 	/*
 	 * Finds User by email. If user is found, returns it. If not, returns null. 
 	 */
-	public User findByEmail(String email){
+	public Optional<User> findByEmail(String email){
 //		return userRepository.findByEmail(email);
 		Optional<User> user = userRepository.findById(email);
-		if (user.isPresent()) {
-			return user.get();
-		} else {
-			return null;
-		}
+		return user;
+//		if (user.isPresent()) {
+//			return user;
+//		} else {
+//			return null;
+//		}
 	}
 	
 	/*

@@ -101,7 +101,7 @@ public class LocationController {
 	public String updateLocation(@RequestParam(value="addUser") String addUser, @ModelAttribute Location location, Model model, Principal principal) {
 //	public String updateLocation(@ModelAttribute Location location, Model model) {
 		//You should be able to manually type a name as well 
-		User user = userService.findByEmail(principal.getName());
+		User user = userService.findByEmail(principal.getName()).get();
 		boolean flag = addUser.equals("Yes") ? true : false;
 //		if (addUser.equals("Yes")) {
 //			location.getUser().add(userService.findByEmail(principal.getName()));
