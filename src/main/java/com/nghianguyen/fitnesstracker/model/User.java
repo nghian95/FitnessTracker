@@ -2,6 +2,7 @@ package com.nghianguyen.fitnesstracker.model;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -144,6 +145,26 @@ public class User {
 				", locations=" + locations +
                 ", roles=" + roles +
                 '}';
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, firstName, lastName, locations, password, phoneNumber, roles);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(locations, other.locations)
+				&& Objects.equals(password, other.password) && phoneNumber == other.phoneNumber
+				&& Objects.equals(roles, other.roles);
 	}
 	
 	

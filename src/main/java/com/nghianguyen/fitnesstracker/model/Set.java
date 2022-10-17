@@ -2,6 +2,7 @@ package com.nghianguyen.fitnesstracker.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -104,17 +105,17 @@ public class Set implements Comparable<Set>{
 		this.activity.add(activity);
 	}
 	
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
-	}
+//	@Override
+//	public int hashCode() {
+//		// TODO Auto-generated method stub
+//		return super.hashCode();
+//	}
 
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
-	}
+//	@Override
+//	public boolean equals(Object obj) {
+//		// TODO Auto-generated method stub
+//		return super.equals(obj);
+//	}
 
 	@Override
 	public String toString() {
@@ -126,6 +127,25 @@ public class Set implements Comparable<Set>{
 		// TODO Auto-generated method stub
 		return this.getSetOrder() - s.getSetOrder(); 
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(activity, reps, setID, setOrder, weight);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Set other = (Set) obj;
+		return Objects.equals(activity, other.activity) && reps == other.reps && setID == other.setID
+				&& setOrder == other.setOrder && weight == other.weight;
+	}
+	
 	
 	
 }

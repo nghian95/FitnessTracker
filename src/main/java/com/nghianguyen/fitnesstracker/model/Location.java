@@ -2,6 +2,7 @@ package com.nghianguyen.fitnesstracker.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -87,6 +88,24 @@ public class Location {
 	@Override
 	public String toString() {
 		return locationName + " | " + locationAddress;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(locationAddress, locationID, locationName, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Location other = (Location) obj;
+		return Objects.equals(locationAddress, other.locationAddress) && locationID == other.locationID
+				&& Objects.equals(locationName, other.locationName) && Objects.equals(user, other.user);
 	}
     
 	

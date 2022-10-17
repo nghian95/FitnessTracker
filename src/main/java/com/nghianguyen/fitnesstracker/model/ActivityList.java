@@ -1,5 +1,7 @@
 package com.nghianguyen.fitnesstracker.model;
 
+import java.util.Objects;
+
 import javax.persistence.*;
 /*
  * ActivityList class that uses @Entity to generate the database tables via Hibernate.
@@ -37,6 +39,11 @@ public class ActivityList {
     	this.description = description;
     	this.majorMuscleGroup = majorMuscleGroup;
     	this.minorMuscles = minorMuscles;
+    }
+    
+    public ActivityList(int activityListID, String activityName, String description, String majorMuscleGroup, String minorMuscles) {
+    	this(activityName, description, majorMuscleGroup, minorMuscles);
+    	this.activityListID = activityListID;
     }
 
 	public int getActivityListID() {
@@ -83,6 +90,27 @@ public class ActivityList {
 	public String toString() {
 		return "ActivityList [activityListID=" + activityListID + ", activityName=" + activityName + ", description="
 				+ description + ", majorMuscleGroup=" + majorMuscleGroup + ", minorMuscles=" + minorMuscles + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(activityListID, activityName, description, majorMuscleGroup, minorMuscles);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ActivityList other = (ActivityList) obj;
+		return activityListID == other.activityListID 
+				&& Objects.equals(activityName, other.activityName)
+				&& Objects.equals(description, other.description)
+				&& Objects.equals(majorMuscleGroup, other.majorMuscleGroup)
+				&& Objects.equals(minorMuscles, other.minorMuscles);
 	}
     
     

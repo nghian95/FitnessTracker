@@ -1,6 +1,7 @@
 package com.nghianguyen.fitnesstracker.repository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +19,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer>
 	@Query("SELECT a FROM Activity a WHERE a.workout.workoutID = :workoutID")
 	Collection<Activity> findActivitiesInWorkout(int workoutID);
 	
+	@Query(value = "SELECT * FROM activity ORDER BY activityid DESC LIMIT 1",
+			nativeQuery = true)
+	Optional<Activity> findLastAddedActivity();
 }
 

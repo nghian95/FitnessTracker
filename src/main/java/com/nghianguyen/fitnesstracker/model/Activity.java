@@ -2,10 +2,12 @@ package com.nghianguyen.fitnesstracker.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +37,7 @@ public class Activity {
     @ManyToOne
     private ActivityList activityList;
 
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable(
 		name = "activity_set_join",
 		joinColumns = @JoinColumn(name="activityID"),
@@ -74,6 +76,12 @@ public class Activity {
        this.comment = comment;
     }
     
+    public Activity(int activityID, String comment) {
+        this();
+        this.activityID = activityID;
+        this.comment = comment;
+     }
+    
     public Activity(ActivityList activityList) {
     	this();
         this.activityList = activityList;
@@ -106,6 +114,27 @@ public class Activity {
         this.activityList = activityList;
         this.comment = comment;
         this.sets = sets;
+        this.workout = workout;
+    }
+    
+    public Activity(int activityID, String comment, Workout workout) {
+    	this();
+    	this.activityID = activityID;
+        this.comment = comment;
+        this.workout = workout;
+    }
+    
+    public Activity(String comment, Workout workout) {
+    	this();
+        this.comment = comment;
+        this.workout = workout;
+    }
+    
+    public Activity(int activityID, String comment, ActivityList activityList, Workout workout) {
+    	this();
+    	this.activityID = activityID;
+        this.comment = comment;
+        this.activityList = activityList;
         this.workout = workout;
     }
     
@@ -158,6 +187,26 @@ public class Activity {
 	public String toString() {
 		return "Activity [activityID=" + activityID + ", activityList=" + activityList + ", sets=" + sets.size() + ", comment="
 				+ comment + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(activityID, activityList, comment, sets, workout);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Activity other = (Activity) obj;
+		return activityID == other.activityID 
+				&& Objects.equals(activityList, other.activityList)
+				&& Objects.equals(comment, other.comment) 
+				&& Objects.equals(workout, other.workout);
 	}
 
 

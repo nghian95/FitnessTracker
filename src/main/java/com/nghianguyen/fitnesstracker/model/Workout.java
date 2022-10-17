@@ -3,6 +3,7 @@ package com.nghianguyen.fitnesstracker.model;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -105,6 +106,26 @@ public class Workout {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(activities, location, user, workoutDate, workoutID);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Workout other = (Workout) obj;
+		return Objects.equals(activities, other.activities) 
+				&& Objects.equals(location, other.location)
+				&& Objects.equals(user, other.user) && Objects.equals(workoutDate, other.workoutDate)
+				&& workoutID == other.workoutID;
 	}
     
     

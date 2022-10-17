@@ -61,18 +61,19 @@ public class ActivityService {
    public void addActivity(Activity activity) {
 	   try {
 		   List<Set> sets = activity.getSets();
-	   
-		   for (var i = 0; i < sets.size(); i++) {
-			   Set set = sets.get(i);
-			   Integer setID = setRepository.getSetIDByProperties(set.getSetOrder(), set.getReps(), set.getWeight());
-			   if(setID == null) {
-				   setRepository.save(sets.get(i));
-			   } else {
-				   set = setRepository.getById(setID);
-				   sets.set(i, set);
+		   if (sets.size() != 0) {
+			   for (var i = 0; i < sets.size(); i++) {
+				   Set set = sets.get(i);
+				   Integer setID = setRepository.getSetIDByProperties(set.getSetOrder(), set.getReps(), set.getWeight());
+				   if(setID == null) {
+					   setRepository.save(sets.get(i));
+				   } else {
+					   set = setRepository.getById(setID);
+					   sets.set(i, set);
+				   }
 			   }
+			   activity.setSets(sets);
 		   }
-		   activity.setSets(sets);
 	       activityRepository.save(activity);
    		} catch(Exception e) {
    			System.out.println(e);
@@ -109,4 +110,7 @@ public class ActivityService {
        activityRepository.deleteAll();
    }
 
+   public Optional<Activity> findLastAddedActivity() {
+	   return activityRepository.findLastAddedActivity();
+   }
 }
