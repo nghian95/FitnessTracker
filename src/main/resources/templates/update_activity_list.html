@@ -36,7 +36,7 @@
 		    	</tr>
 		        <tr>
 		            <td><label path="activityName">Activity Name</label></td>
-		            <td><input name="activityName" th:value="${activityList.activityName}"/></td>
+		            <td><input name="activityName" th:value="${activityList.activityName}" required/></td>
 		        </tr>
 		        <tr>
 		            <td><label path="description">Description</label></td>
@@ -44,7 +44,7 @@
 		        </tr>
      		    <tr>
 		            <td><label path="majorMuscleGroup">Major Muscle Group</label></td>
-		            <td><input type="text" name="majorMuscleGroup" th:value="${activityList.majorMuscleGroup}"/></td>
+		            <td><input type="text" name="majorMuscleGroup" th:value="${activityList.majorMuscleGroup}" required/></td>
 		        </tr>
           		<tr>
 		            <td><label path="minorMuscles">Minor Muscles</label></td>

@@ -9,11 +9,9 @@ public class FitnessTrackerApplication {
 
 	
 	public static void main(String[] args) {
-//		try {
-			SpringApplication.run(FitnessTrackerApplication.class, args);
-//		} catch(Exception e){
-//			e.printStackTrace();
-//		}
+
+		SpringApplication.run(FitnessTrackerApplication.class, args);
+
 	}
 
 }

@@ -23,7 +23,7 @@
 		        <tr>
 		            <td><label path="locationName">Location Name</label></td>
 		            <td>
-		            	<input list="locationNames" name="locationName">
+		            	<input list="locationNames" name="locationName" required>
 		            	<datalist id="locationNames">
 		            		<option th:each="locationName: ${locationNames}" th:text="${locationName}" th:value="${locationName}"></option>
 		            	</datalist>
@@ -31,7 +31,7 @@
 		        </tr>
 		        <tr>
 		            <td><label path="locationAddress">Location Address</label></td>
-		            <td><textarea class="textarea" name="locationAddress"></textarea></td>
+		            <td><textarea class="textarea" name="locationAddress" required></textarea></td>
 		        </tr>
 		        <tr>
 		            <td colspan=2><input type="submit" value="Submit" /></td>
