@@ -70,7 +70,7 @@ public class Activity {
 // 	   	}
         workout = new Workout();
     }
-
+    
     public Activity(String comment) {
        this();
        this.comment = comment;

@@ -32,3 +32,8 @@ You can either add or update activities here, or even update or delete the worko
 ![updating activity](src/main/resources/static/img/update_activity.png)
 
 Which includes Sets you can add or remove, list of exercises to choose from and a comment section. 
+
+# Sources
+Logging HTTP Requests and Responses (LoggingFilter.java):
+https://www.youtube.com/watch?v=s841xbEPg4I
+
