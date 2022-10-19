@@ -1,7 +1,10 @@
 package com.nghianguyen.fitnesstracker.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -53,9 +56,6 @@ public class WorkoutController {
 	@GetMapping("/admin/workout")
 	public String getAllWorkouts(Model model) {
 		model.addAttribute("listOfWorkouts",workoutService.getAllWorkouts());
-//		for (Workout workout : workoutService.getAllWorkouts()) {
-//			System.out.println(workout);
-//		}
 		return "list_of_workouts";
 	}
 	
@@ -66,7 +66,14 @@ public class WorkoutController {
 	 */
 	@GetMapping("/workout")
 	public String findWorkoutsByUser(Model model, Principal principal) {
-		model.addAttribute("listOfWorkouts",workoutService.findWorkoutsByUser(principal.getName()));
+		Collection<Workout> userWorkouts = workoutService.findWorkoutsByUser(principal.getName());
+		model.addAttribute("listOfWorkouts", userWorkouts);
+		List<List<String>> listOfWorkoutsMuscleGroups = new ArrayList<>();
+		for (Workout workout : userWorkouts) {
+			List<String> muscleGroupCount = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
+			listOfWorkoutsMuscleGroups.add(muscleGroupCount);
+		}
+		model.addAttribute("listOfWorkoutsMuscleGroups", listOfWorkoutsMuscleGroups);
 		return "list_of_workouts";
 	}
 	
@@ -78,8 +85,9 @@ public class WorkoutController {
 	@GetMapping("/workout/{id}")
 	public String getWorkoutByID(@PathVariable("id") int id, Model model) {
 		model.addAttribute("workout", workoutService.getWorkoutByID(id).get());
-//		model.addAttribute("listOfActivities", activityService.getAllActivities());
 		model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(id));
+		List<String> namesOfActivities = activityService.findCountOfMuscleGroups(id);
+		model.addAttribute("namesOfActivities", namesOfActivities);
 		return "single_workout";
 	}
 	
@@ -120,6 +128,9 @@ public class WorkoutController {
 		workoutService.addWorkout(workout);
 		Workout retrievedWorkout = workoutService.getWorkoutByID(workout.getWorkoutID()).get();
 		model.addAttribute("workout", retrievedWorkout);
+		model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(workout.getWorkoutID()));
+		List<String> namesOfActivities = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
+		model.addAttribute("namesOfActivities", namesOfActivities);
 		return "single_workout";
 	}
 	
@@ -142,8 +153,9 @@ public class WorkoutController {
 		   Workout retrievedWorkout = workoutService.getWorkoutByID(workout.getWorkoutID()).get();
 		   model.addAttribute("workout", retrievedWorkout);
 		   
-		   model.addAttribute("listOfActivities", activityService.getAllActivities());
-	       
+		   model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(workout.getWorkoutID()));
+		   List<String> namesOfActivities = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
+		   model.addAttribute("namesOfActivities", namesOfActivities);
 	       return "single_workout";
 	}
 	

@@ -42,12 +42,15 @@
 				<th class="list">Workout ID</th>
 				<th class="list">Workout Date</th>
 				<th class="list">Location</th>
-				<th colspan=2>
+				<th class="list">Muscle Groups</th>
+				<th colspan=2></th>
 			</tr>
-			<tr th:each="eachWorkout: ${listOfWorkouts}">
+			<tr th:each="eachWorkout, workoutIter: ${listOfWorkouts}">
 				<td class="list tdWorkout" th:text="${eachWorkout.workoutID}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
 				<td class="list tdWorkout" th:text="${eachWorkout.workoutDate}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
 				<td class="list tdWorkout" th:text="${eachWorkout.location}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
+				<td class="list tdWorkout" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"><p th:each="eachMuscleGrouping: ${listOfWorkoutsMuscleGroups[__${workoutIter.index}__]}" th:text="${eachMuscleGrouping}"></p></td>
+<!-- 				<td class="list tdWorkout"><p th:text="${listOfWorkoutsMuscleGroups}.get(${iter.index})"></p></td> -->
 				<td class="list"><a th:href="@{/updateWorkout(workoutID=${eachWorkout.workoutID})}">Update</a></td>
 				<td class="list"><a th:href="@{/deleteWorkout(workoutID=${eachWorkout.workoutID})}" class="confirm">Delete</a></td>
 			</tr>

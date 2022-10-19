@@ -38,6 +38,7 @@ public class Activity {
     private ActivityList activityList;
 
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+//    @ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(
 		name = "activity_set_join",
 		joinColumns = @JoinColumn(name="activityID"),

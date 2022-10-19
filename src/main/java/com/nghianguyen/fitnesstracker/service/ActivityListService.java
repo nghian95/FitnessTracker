@@ -1,22 +1,14 @@
 package com.nghianguyen.fitnesstracker.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.nghianguyen.fitnesstracker.model.Activity;
-import com.nghianguyen.fitnesstracker.model.ActivityList;
-import com.nghianguyen.fitnesstracker.repository.ActivityListRepository;
-import com.nghianguyen.fitnesstracker.repository.ActivityRepository;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nghianguyen.fitnesstracker.model.ActivityList;
+import com.nghianguyen.fitnesstracker.repository.ActivityListRepository;
 /*
  * Utilizes the ActivityListRepository's CRUD operations to make changes
  * to ActivityList entities.

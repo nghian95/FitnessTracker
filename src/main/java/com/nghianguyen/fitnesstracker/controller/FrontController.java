@@ -43,6 +43,9 @@ public class FrontController {
         return "login";
     }
     
+    /*
+     * Redirects any localhost:8080/ webpage visits to the index mapping
+     */
 	@GetMapping("/")
 	public String getIndex() {
 		return "redirect:/index";

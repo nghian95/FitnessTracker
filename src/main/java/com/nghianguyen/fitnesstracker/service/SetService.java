@@ -32,7 +32,7 @@ public class SetService {
 		return setRepository.findById(id);
 	}
 	
-	public int getSetIDByProperties(int setOrder, int reps, int weight) {
+	public Integer getSetIDByProperties(int setOrder, int reps, int weight) {
 		return setRepository.getSetIDByProperties(setOrder, reps, weight);
 	}
 	

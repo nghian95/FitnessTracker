@@ -2,8 +2,13 @@ package com.nghianguyen.fitnesstracker.service;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.persistence.Tuple;
+import javax.persistence.TupleElement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.nghianguyen.fitnesstracker.model.Activity;
 import com.nghianguyen.fitnesstracker.model.Set;
 import com.nghianguyen.fitnesstracker.repository.ActivityRepository;
-import com.nghianguyen.fitnesstracker.repository.SetRepository;
 
 /*
  * This is the implementation for any CRUD methods in relation to Activity entity.
@@ -65,6 +69,7 @@ public class ActivityService {
 			   for (var i = 0; i < sets.size(); i++) {
 				   Set set = sets.get(i);
 				   Integer setID = setService.getSetIDByProperties(set.getSetOrder(), set.getReps(), set.getWeight());
+				   System.out.println(setID);
 				   if(setID == null) {
 					   setService.addSet(sets.get(i));
 				   } else {
@@ -110,7 +115,39 @@ public class ActivityService {
        activityRepository.deleteAll();
    }
 
+   /*
+    * Finds the last added activity by looking at largest activityID and selecting it
+    */
    public Optional<Activity> findLastAddedActivity() {
 	   return activityRepository.findLastAddedActivity();
+   }
+   
+   /*
+    * Find list of Major Muscles worked for each workout. Backend logic rather than SQL queries.
+    */
+//   public Map<String, Integer> findMajorMusclesWorked(int id) {
+//	   Map<String, Integer> majorMuscles = new HashMap<>();
+//	   Collection<Activity> activitiesInWorkout = findActivitiesInWorkout(id);
+//	   for (Activity activity : activitiesInWorkout) {
+//		   String activityName = activity.getActivityList().getMajorMuscleGroup();
+//		   if (majorMuscles.containsKey(activityName)) {
+//			   majorMuscles.put(activityName, majorMuscles.get(activityName) + 1);
+//		   } else {
+//			   majorMuscles.put(activityName, 1);
+//		   }
+//	   }
+//	   return majorMuscles;
+//   }
+   
+   /*
+    * Find list of Major Muscles worked for each workout based on SQL Queries
+    */
+   public List<String> findCountOfMuscleGroups(int workoutID) {
+	   List<String> muscleGroups = activityRepository.findCountOfMuscleGroups(workoutID);
+//	   for (String str : muscleGroups) {
+//		   System.out.println(str);
+//	   }
+//	   HashMap<String,Integer> muscleGroupCount = new HashMap<>();
+	   return muscleGroups;
    }
 }

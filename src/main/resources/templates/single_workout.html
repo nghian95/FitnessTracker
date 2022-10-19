@@ -12,10 +12,15 @@
 	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>View Workout</title>
+	<style>
+		#bg {
+			margin-top:-2rem;
+		}
+	</style>
 </head>
 <body id="bootstrap-overrides">
-	<div id="bg"></div>
 	<div th:insert="fragments/header.html"></div>
+	<div id="bg"></div>
 	<div class="container">
 		<h1>Workout</h1>
 		<table style="margin:auto">
@@ -24,12 +29,14 @@
 				<th>Workout ID</th>
 				<th>Workout Date</th>
 				<th>Location</th>
+				<th>Muscle Groups</th>
 				<th colspan=2></th>
 			</tr>
 			<tr>
 				<td th:text="${workout.workoutID}"></td>
 				<td th:text="${workout.workoutDate}"></td>
 				<td th:text="${workout.location}"></td>
+				<td><p th:each="name: ${namesOfActivities}" th:text="${name}"></p></td>
 				<td ><a th:href="@{/updateWorkout(workoutID=${workout.workoutID})}">Update</a></td>
 				<td ><a th:href="@{/deleteWorkout(workoutID=${workout.workoutID})}" class="confirm">Delete</a></td>
 			</tr>

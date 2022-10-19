@@ -1,14 +1,14 @@
 package com.nguyennghia.FitnessTracker;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.Query;
 
 import com.nghianguyen.fitnesstracker.FitnessTrackerApplication;
 import com.nghianguyen.fitnesstracker.model.Activity;
@@ -94,4 +94,12 @@ class ActivityServiceTest {
 		Assertions.assertNotEquals(activity.getActivityID(), retrievedActivity.getActivityID());
 	}
 	
+	@Test
+	void testFindCountOfMuscleGroups() {
+		List<String> muscleGroups = activityService.findCountOfMuscleGroups(16);
+		List<String> expectedMuscleGroups = new ArrayList<>();
+		expectedMuscleGroups.add("Chest=3");
+		expectedMuscleGroups.add("Tricep=3");
+		Assertions.assertEquals(expectedMuscleGroups, muscleGroups);
+	}
 }
