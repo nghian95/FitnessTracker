@@ -1,21 +1,37 @@
 package com.nghianguyen.fitnesstracker.controller;
 
+import java.security.Principal;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.nghianguyen.fitnesstracker.model.User;
+import com.nghianguyen.fitnesstracker.service.UserServiceImpl;
 
 @Controller
 public class FrontController {
 	
 	private static final Logger log = LoggerFactory.getLogger(FrontController.class);
 
+	@Autowired
+	UserServiceImpl userServiceImpl;
+	
 	/*
 	 * Home page. Default screen once user logs in.
 	 */
 	@GetMapping("/index")
-	public String getIndex() {
+	public String getIndex(Model model, Principal principal) {
+		String userName = principal.getName();
+		Optional<User> userData = userServiceImpl.findByEmail(userName);
+		if (userData.isPresent()) {
+			User user = userData.get();
+			model.addAttribute("name", user.getFirstName());
+		}
 		return "index";
 	}
 	
@@ -26,6 +42,11 @@ public class FrontController {
     public String login(Model model) {
         return "login";
     }
+    
+	@GetMapping("/")
+	public String getIndex() {
+		return "redirect:/index";
+	}
     
 //    @GetMapping("/invalidSession")
 //    public String invalid(Model model) {

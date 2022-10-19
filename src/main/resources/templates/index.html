@@ -21,9 +21,9 @@
 	<div id="bg"></div>
 	<div th:insert="fragments/header.html"></div>
 	<div class="container">
-	     <p>
-	        Welcome <span sec:authentication="principal.username">User</span>
-	     </p>
+	     <h3 th:text="'Welcome '+ ${name} + '!'">
+<!-- 	        Welcome <span sec:authentication="principal.username">User</span> -->
+	     </h3>
     </div>
 </body>
 </html>

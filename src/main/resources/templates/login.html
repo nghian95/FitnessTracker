@@ -20,6 +20,20 @@
 		#nav {
 			background-color:#e6e6e6;
 		}
+		#username, #password, #registerHere{
+			width: 60%;
+ 			margin:auto; 
+		}
+ 		#usernameLabel, #passwordLabel { 
+ 			width:60%;
+  			margin:auto auto 5px auto;
+  			display:block;
+		} 
+		#login-submit {
+ 			width:60%;
+  			margin:auto;
+  			display:block;
+		}
 	</style>
 </head>
 <body>
@@ -43,12 +57,13 @@
                  <div class="alert alert-info">You have been logged out.</div>
               </div>
               <div class="form-group">
-                 <label for="username">Email</label>: <input type="text"
+                 <label for="username" id="usernameLabel">Email:</label> 
+                 <input type="text"
                     id="username" name="username" class="form-control"
                     autofocus="autofocus" placeholder="Username" />
               </div>
               <div class="form-group">
-                 <label for="password">Password</label>: <input type="password"
+                 <label for="password" id="passwordLabel">Password:</label> <input type="password"
                     id="password" name="password" class="form-control"
                     placeholder="Password" />
               </div>
@@ -60,7 +75,7 @@
                     </div>
                  </div>
               </div>
-              <div class="form-group">
+              <div class="form-group" id="registerHere">
                  <span>New user? <a href="/" th:href="@{/registration}">Register
                        here</a></span>
               </div>
