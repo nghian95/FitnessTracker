@@ -3,9 +3,16 @@
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 	<meta charset="ISO-8859-1">
+<!-- 	<link rel="stylesheet" href="/src/main/resources/static/css/style.css" th:href="@{/css/style.css}"> -->
+	<style>
+		#nav {
+			background-color:#e6e6e6;
+		}
+	</style>
 </head>
-<body>
- 	<nav class="navbar navbar-default" th:fragment="nav">
+<body id="bootstrap-override">
+ 	<nav class="navbar navbar-default" id="nav" th:fragment="nav">
+ 		<div id="bg"></div>
 	    <div class="navbar-header">
 	      <a class="navbar-brand active" th:href="@{/index}">Homepage</a>
 	    </div>

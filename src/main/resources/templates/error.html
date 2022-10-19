@@ -14,6 +14,7 @@
 	<title>Error</title>
 </head>
 <body>
+	<div id="bg"></div>
 	<div th:insert="fragments/header.html"></div>
 	<h1 th:unless="${msg != null}">Sorry, there was an error that occurred!</h1>
 	<h1 th:if="${msg != null}" th:text="${msg}"></h1>

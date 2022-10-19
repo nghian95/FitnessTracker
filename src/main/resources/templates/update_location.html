@@ -13,6 +13,11 @@
  	 <!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<script type="text/javascript" th:src="@{/script/location.js}"></script>
+	<script type="text/javascript" th:src="@{/script/textarea.js}"></script>
+	<script th:inline="javascript" defer>
+ 		var locationName = [[${location.locationName}]];
+	</script>
 	<style>
 		#bootstrap-overrides .tableNoBorder {
 			border: none;
@@ -28,6 +33,7 @@
 	</style>
 </head>
 <body id="bootstrap-overrides">
+	<div id="bg"></div>
 	<div th:insert="fragments/header.html"></div>
 	<div class="container">
 		<h3 style="text-align:center">Update Location</h3>
@@ -40,7 +46,7 @@
 		        <tr>
 		            <td><label path="locationName">Location Name</label></td>
 		            <td>
-		            	<select name="locationName" required>
+		            	<select id="locationSelect" name="locationName" required>
 		            		<option disabled selected value="">Select Location</option>
 		            		<option th:each="locationNm: ${locationNames}" th:text="${locationNm}" th:value="${locationNm}"></option>
 		            	</select>

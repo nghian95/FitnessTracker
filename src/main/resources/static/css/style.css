@@ -42,6 +42,20 @@ input, h1 {
 	border:none;
 }
 
+#bg {
+	background-image: url("../img/textured_background.png");
+	background-size: cover;
+	opacity: .6;
+	position: absolute;
+	width:100%;
+	height:100%;
+	z-index:-1;
+}
+
+#bootstrap-overrides navbar, #bootstrap-overrides navbar-default {
+	background-color: gray;
+}
+
 /* #bootstrap-overrides .tableNoBorder tr:last-child td:first-child input{ */
 /* 	background-color:blue; */
 /* } */

@@ -13,6 +13,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"> 
 	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<script type="text/javascript" th:src="@{/script/delete.js}"></script>
 	<script th:inline="javascript" defer>
 // 		function confirmDelete(id) {
 // 			if (confirm('Do you want to delete this?') == true) {
@@ -31,6 +32,7 @@
 	</script>  
 </head>
 <body id="bootstrap-overrides">
+	<div id="bg"></div>
 	<div th:insert="fragments/header.html"></div>
 	<div class="container">
 		<h1>List of Workouts</h1>
