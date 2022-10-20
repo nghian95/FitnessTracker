@@ -34,6 +34,12 @@ You can either add or update activities here, or even update or delete the worko
 Which includes Sets you can add or remove, list of exercises to choose from and a comment section. 
 
 # Sources
+Workout Exercises:
+https://www.muscleandstrength.com/
+
 Logging HTTP Requests and Responses (LoggingFilter.java):
 https://www.youtube.com/watch?v=s841xbEPg4I
+
+Spring Security:
+https://docs.google.com/document/d/1M5ZH3XnYZC4hsQboD3t-pAD1InAxrXSWvRYUWljguj4/edit
 
