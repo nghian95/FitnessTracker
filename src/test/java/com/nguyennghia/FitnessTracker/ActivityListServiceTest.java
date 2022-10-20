@@ -1,8 +1,11 @@
 package com.nguyennghia.FitnessTracker;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,22 @@ class ActivityListServiceTest {
 		activityListService.deleteActivityList(activityList.getActivityListID());
 		Optional<ActivityList> activityListData = activityListService.getActivityListByID(activityList.getActivityListID());
 		Assertions.assertTrue(activityListData.isEmpty());
+	}
+	
+	/*
+	 * Testing the getPagedActivityLists() method by comparing the results with the expected values
+	 * Also tests the getActivityListByID further.
+	 */
+	@Test
+	void testGetPagedActivityLists() {
+		List<ActivityList> retrievedList = activityListService.getPagedActivityLists(1, 5);
+		List<ActivityList> expectedList = new ArrayList<>();
+		expectedList.add(activityListService.getActivityListByID(505).get());
+		expectedList.add(activityListService.getActivityListByID(2).get());
+		expectedList.add(activityListService.getActivityListByID(3).get());
+		expectedList.add(activityListService.getActivityListByID(4).get());
+		expectedList.add(activityListService.getActivityListByID(7).get());
+		Assertions.assertEquals(expectedList, retrievedList);
 	}
 
 }

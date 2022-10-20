@@ -51,6 +51,11 @@
 <!-- 				</td> -->
 			</tr>
 		</table>
+		<div style="display:flex;">
+			<h3 style="display:inline;margin:2rem 3rem 2rem 3rem" th:each="i : ${#numbers.sequence(1, pages)}" >
+				<a th:text="${i}" th:href="@{/activityList(page=${i})}"></a>
+			</h3>
+		</div>
 	</div>
 </body>
 </html>

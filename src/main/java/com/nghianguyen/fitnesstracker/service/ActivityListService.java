@@ -73,4 +73,14 @@ public class ActivityListService {
 	   activityListRepository.deleteAll();
    }
 
+   /*
+    * Gets a list of ActivityLists via paging
+    */
+   public List<ActivityList> getPagedActivityLists(int pageNum, int pageSize) {
+	   List<ActivityList> pageResults = activityListRepository.getPagedActivityLists((pageNum-1)*pageSize, pageSize);
+//	   for (ActivityList activityList : pageResults) {
+//		   System.out.println(activityList);
+//	   }
+	   return pageResults;
+   }
 }

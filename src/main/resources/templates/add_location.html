@@ -25,8 +25,8 @@
 		        <tr>
 		            <td><label path="locationName">Location Name</label></td>
 		            <td>
-		            	<input list="locationNames" name="locationName" required>
-		            	<datalist id="locationNames">
+		            	<input list="locationNames" name="locationName" required class="input"/>
+		            	<datalist id="locationNames" >
 		            		<option th:each="locationName: ${locationNames}" th:text="${locationName}" th:value="${locationName}"></option>
 		            	</datalist>
 		            </td>

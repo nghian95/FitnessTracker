@@ -33,9 +33,13 @@ public class ActivityListController {
 	 * Returns a view of all of the ActivityLists in the databases.
 	 */
 	@GetMapping("/activityList")
-   public String getAllActivityLists(Model model)         {
-       model.addAttribute("activityLists", activityListService.getAllActivityLists());
-       return "list_of_activity_lists";
+   public String getAllActivityLists(@RequestParam(value="page") int pageNum, Model model)         {
+		int total = activityListService.getAllActivityLists().size();
+		int pageNumber = (total / 10) + 1;
+		model.addAttribute("pages", pageNumber);
+		List<ActivityList> pageResults = activityListService.getPagedActivityLists(pageNum, 10);
+		model.addAttribute("activityLists", pageResults);
+		return "list_of_activity_lists";
    }
 
 	/*
