@@ -9,6 +9,10 @@ input, h1 {
 	text-align:center;
 }
 
+#trWorkout:hover {
+	background-color:#7CA4B7;
+}
+
 @media (min-width: 768px) {
 	.container {
 		width: 100%;

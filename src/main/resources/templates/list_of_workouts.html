@@ -45,7 +45,7 @@
 				<th class="list">Muscle Groups</th>
 				<th colspan=2></th>
 			</tr>
-			<tr th:each="eachWorkout, workoutIter: ${listOfWorkouts}">
+			<tr id="trWorkout" th:each="eachWorkout, workoutIter: ${listOfWorkouts}">
 				<td class="list tdWorkout" th:text="${eachWorkout.workoutID}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
 				<td class="list tdWorkout" th:text="${eachWorkout.workoutDate}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
 				<td class="list tdWorkout" th:text="${eachWorkout.location}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
