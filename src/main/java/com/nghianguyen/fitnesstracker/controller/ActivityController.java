@@ -176,10 +176,10 @@ public class ActivityController {
   /*
    * Deletes all activities. Meant for admin usage.
    */
-   @DeleteMapping("/deleteActivity")
-   public void deleteAllActivities() {
-	   activityService.deleteAllActivities();
-   }
+//   @DeleteMapping("/deleteActivity")
+//   public void deleteAllActivities() {
+//	   activityService.deleteAllActivities();
+//   }
 }
 
 

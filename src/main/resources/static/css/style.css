@@ -35,7 +35,7 @@ input, h1 {
 
 /* #bootstrap-overrides .updateTable td{ */
 /* 	margin: .2rem 1rem .2rem 1rem; */
-#bootstrap-overrides td{
+#bootstrap-overrides td, #bootstrap-overrides th{
 	padding: .2rem 1rem .2rem 1rem;
 }
 

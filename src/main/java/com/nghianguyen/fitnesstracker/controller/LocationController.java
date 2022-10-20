@@ -130,16 +130,16 @@ public class LocationController {
 	public String deleteLocationByID(@RequestParam(value="locationID") int locationID, Model model) {
 		locationService.deleteLocationByID(locationID);
 		model.addAttribute("locations", locationService.getAllLocations());
-		return "list_of_locations";
+		return "redirect:/location";
 	}
 	
 	/*
 	 * Uses LocationService's method deleteAllLocations to delete all locations. Admin use.
 	 */
-	@DeleteMapping("/deleteLocation") 
-	public void deleteAllLocations() {
-		locationService.deleteAllLocations();
-	}
+//	@DeleteMapping("/deleteLocation") 
+//	public void deleteAllLocations() {
+//		locationService.deleteAllLocations();
+//	}
 }
 
 

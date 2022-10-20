@@ -169,7 +169,7 @@ public class WorkoutController {
 		workoutService.deleteWorkoutByID(workoutID);
 		String email = principal.getName();
 		model.addAttribute("listOfWorkouts", workoutService.findWorkoutsByUser(email));
-		return "list_of_workouts";
+		return "redirect:/workout";
 	}
 	
 	/*

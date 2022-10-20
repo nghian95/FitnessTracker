@@ -107,7 +107,7 @@ public class ActivityListController {
    public String deleteActivityList(@RequestParam(value="activityListID") int activityListID, Model model) {
 	   activityListService.deleteActivityList(activityListID);
 	   model.addAttribute("activityLists", activityListService.getAllActivityLists());
-	   return "list_of_activity_lists";
+	   return "redirect:/activityList?page=1";
    }
    
 //   @GetMapping("/deleteActivityList")
@@ -118,10 +118,10 @@ public class ActivityListController {
 	/*
 	 * Deletes all ActivityLists. Meant for admin use.
 	 */
-   @GetMapping("/deleteAllActivityLists")
-   public void deleteAllActivityLists() {
-	   activityListService.deleteAllActivityLists();
-   }
+//   @GetMapping("/deleteAllActivityLists")
+//   public void deleteAllActivityLists() {
+//	   activityListService.deleteAllActivityLists();
+//   }
 
 }
 
