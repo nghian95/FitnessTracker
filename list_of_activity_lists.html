@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>View ActivityLists</title>
+	<!-- <script th:src="@{/script/javascript.js}" defer> -->
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"> 
+	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<script type="text/javascript" th:src="@{/script/delete.js}"></script>
+	<style>
+		.container {
+			max-width: 75%;
+		}
+	</style>
+</head>
+<body id="bootstrap-overrides">
+	<div id="bg"></div>
+	<div th:insert="fragments/header.html"></div>
+	<div class="container">
+		<h1>List of Workout Activities</h1>
+		<table style="border: 1px solid black">
+	
+			<tr>
+				<th class="list">Workout Activity ID</th>
+				<th class="list">Activity Name</th>
+				<th class="list">Description</th>
+				<th class="list">Major Muscle Group</th>
+				<th class="list">Minor Muscle Group</th>
+				<th class="list" colspan=2></th>
+			</tr>
+			<tr th:each="eachActivityList: ${activityLists}">
+				<td class="list" th:text="${eachActivityList.activityListID}"></td>
+				<td class="list" th:text="${eachActivityList.activityName}"></td>
+				<td class="list" th:text="${eachActivityList.description}"></td>
+				<td class="list" th:text="${eachActivityList.majorMuscleGroup}"></td>
+				<td class="list" th:text="${eachActivityList.minorMuscles}"></td>
+				<td class="list"><a th:href="@{/updateActivityList(activityListID=${eachActivityList.activityListID})}">Update</a></td>
+				<td class="list"><a th:href="@{/deleteActivityList(activityListID=${eachActivityList.activityListID})}" class="confirm">Delete</a></td>
+				
+<!-- 				<td class="list"><a href="#" th:onclick="confirmDelete([[${eachActivityList.activityListID}]])">Delete</a></td> -->
+<!-- 				<td> -->
+<!-- 					<form th:object="${eachActivityList}" th:action="@{/deleteActivityList}" th:method="delete"></form> -->
+<!-- 					<input type="submit" value="Delete" /> -->
+<!-- 				</td> -->
+			</tr>
+		</table>
+		<div style="display:flex;">
+			<h3 style="display:inline;margin:2rem 3rem 2rem 3rem" th:each="i : ${#numbers.sequence(1, pages)}" >
+				<a th:text="${i}" th:href="@{/activityList(page=${i})}"></a>
+			</h3>
+		</div>
+	</div>
+</body>
+</html>

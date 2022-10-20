@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<script type="text/javascript" th:src="@{/script/textarea.js}"></script>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+
+<title>Add Location</title>
+</head>
+<body id="bootstrap-overrides">
+	<div id="bg"></div>
+	<div th:insert="fragments/header.html"></div>
+	<div class="container">
+		<h1 style="text-align:center">Add a Location here:</h1>
+		<form action="#" th:action="@{/location}" method="post">
+		    <table style="margin:auto">
+		        <tr>
+		            <td><label path="locationName">Location Name</label></td>
+		            <td>
+		            	<input list="locationNames" name="locationName" required class="input"/>
+		            	<datalist id="locationNames" >
+		            		<option th:each="locationName: ${locationNames}" th:text="${locationName}" th:value="${locationName}"></option>
+		            	</datalist>
+		            </td>
+		        </tr>
+		        <tr>
+		            <td><label path="locationAddress">Location Address</label></td>
+		            <td><textarea class="textarea" name="locationAddress" required></textarea></td>
+		        </tr>
+		        <tr>
+		            <td colspan=2><input type="submit" value="Submit" /></td>
+		        </tr>
+		    </table>
+		</form>
+   		<div style="text-align:center; margin-top: 1rem;">
+			<a th:href="@{/location}" th:text="${'Back to Locations'}"></a>
+		</div>
+	</div>
+</body>
+</html>

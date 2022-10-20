@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<script type="text/javascript" th:src="@{/script/textarea.js}"></script>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Add Activity</title>
+	<style>
+		#bootstrap-overrides .tableNoBorder {
+			border: none;
+			padding: 0rem 1rem 0rem 1rem;
+			width: 1rem;
+/* 			margin:auto; */
+		}
+		th {
+			border:none;
+		}
+	</style>
+</head>
+<body id="bootstrap-overrides">
+	<div id="bg"></div>
+	<div th:insert="fragments/header.html"></div>
+	<h1 style="text-align:center">Please add the activity here:</h1>
+	<div class="container">
+		<form action="#" th:action="@{/activity(workoutID=${workout.workoutID})}" th:object=${activity} method="post">
+		    <table class="updateTable">
+		    	<tr>
+		    		<td><label>Workout ID</label></td>
+		    		<td><p th:text="${workout.workoutID}"></p></td>
+		    	</tr>
+		    	<tr>
+		    		<td><label>Workout Date</label></td>
+		    		<td><p th:text="${workout.workoutDate}"></p></td>
+		    	</tr>
+		        <tr>
+		            <td><label path="activityList">Workout Activity:</label></td>
+	<!-- 	            <td><input type="text" name="activityListName" /></td> -->
+		            <td>
+		            	<select name="activityList" required>
+		            		<option selected disabled value="">Select Activity</option>
+		            		<option th:each="activityLst: ${activityLists}" th:text="${activityLst.activityName}" th:value="${activityLst.activityListID}"></option>
+		            	</select>
+		            </td>
+		        </tr>
+		        <tr>
+		        	<td>Sets</td>
+			        <td>
+				        <table class="tableNoBorder">
+					        <tr>
+					        	<th class="setCell" style="margin:2rem">Set</th>
+					        	<th class="setCell">Reps</th>
+					        	<th class="setCell">Weight</th>
+					        </tr>
+<!-- 							<tr th:each="set, iter : *{sets}" th:if="${activity} != null"> -->
+							<tr>
+								<td style="border:none" ><input class="setCell" th:name="sets[0].setOrder" th:value="1"></td>
+								<td style="border:none" ><input class="setCell" th:name="sets[0].reps" th:value="0"></td>
+								<td style="border:none" ><input class="setCell" th:name="sets[0].weight" th:value="0"></td>
+								<td><button type="button" th:onclick="this.parentElement.parentElement.remove()" value="Delete Set">X</button></td>
+							</tr>
+<!-- 							<tr> -->
+<!-- 								<td style="border:none" ><input class="setCell" th:value="${iter.index}+1" disabled></td> -->
+<!-- 								<td style="border:none" ><input class="setCell" th:field="*{sets[__${iter.index}__].reps}"></td> -->
+<!-- 								<td style="border:none" ><input class="setCell" th:field="*{sets[__${iter.index}__].reps}"></td> -->
+<!-- 							</tr> -->
+				        </table>
+				        <button type="button" th:onclick="addRow()" value="Add Set">Add Set</button>
+			        </td>
+		        </tr>
+		        <tr>
+		            <td><label path="comment">Enter Comment</label></td>
+		            <td><textarea class="textarea" name="comment"></textarea></td>
+		        </tr>
+		        <tr>
+		            <td colspan=2><input type="submit" value="Submit" /></td>
+		        </tr>
+		    </table>
+    		<div style="text-align:center; margin-top: 1rem;">
+				<a th:href="@{'/workout/'+${workout.workoutID}}" th:text="${'Back to Workout ' + workout.workoutID}"></a>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

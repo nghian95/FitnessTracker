@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>View Workouts</title>
+	<!-- <script th:src="@{/script/javascript.js}" defer> -->
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"> 
+	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<script type="text/javascript" th:src="@{/script/delete.js}"></script>
+	<script th:inline="javascript" defer>
+// 		function confirmDelete(id) {
+// 			if (confirm('Do you want to delete this?') == true) {
+// 				const HTTP = new XMLHttpRequest();
+// 				const url='/deleteWorkout/' + id;
+// 				HTTP.open('DELETE', url, true);
+// 				HTTP.onload = function () {
+// 					while (HTTP.readyState != 4) {
+						
+// 					}
+// 					window.location.replace('/workout');
+// 				};
+// 				HTTP.send();
+// 			}	
+// 		}
+	</script>  
+</head>
+<body id="bootstrap-overrides">
+	<div id="bg"></div>
+	<div th:insert="fragments/header.html"></div>
+	<div class="container">
+		<h1>List of Workouts</h1>
+		<table style="border: 1px solid black">
+	
+			<tr>
+				<th class="list">Workout ID</th>
+				<th class="list">Workout Date</th>
+				<th class="list">Location</th>
+				<th class="list">Muscle Groups</th>
+				<th colspan=2></th>
+			</tr>
+			<tr id="trWorkout" th:each="eachWorkout, workoutIter: ${listOfWorkouts}">
+				<td class="list tdWorkout" th:text="${eachWorkout.workoutID}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
+				<td class="list tdWorkout" th:text="${eachWorkout.workoutDate}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
+				<td class="list tdWorkout" th:text="${eachWorkout.location}" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"></td>
+				<td class="list tdWorkout" th:onclick="viewSingleWorkout([[${eachWorkout.workoutID}]])"><p th:each="eachMuscleGrouping: ${listOfWorkoutsMuscleGroups[__${workoutIter.index}__]}" th:text="${eachMuscleGrouping}"></p></td>
+<!-- 				<td class="list tdWorkout"><p th:text="${listOfWorkoutsMuscleGroups}.get(${iter.index})"></p></td> -->
+				<td class="list"><a th:href="@{/updateWorkout(workoutID=${eachWorkout.workoutID})}">Update</a></td>
+				<td class="list"><a th:href="@{/deleteWorkout(workoutID=${eachWorkout.workoutID})}" class="confirm">Delete</a></td>
+			</tr>
+			<tr>
+				<td colspan=6><a th:href="@{/addWorkout}">Add Workout</a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

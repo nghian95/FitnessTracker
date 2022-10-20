@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"> 
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+
+<title>Add Workout</title>
+</head>
+<body id="bootstrap-overrides">
+	<div id="bg"></div>
+	<div th:insert="fragments/header.html"></div>
+	<h2 style="text-align:center">Please add the workout here:</h2>
+	<div class="container">
+		<form action="#" th:action="@{/workout}" method="post">
+		    <table style="margin:auto">
+		        <tr>
+		            <td><label path="workoutDate">Workout Date</label></td>
+		            <td><input type="date" name="workoutDate"/></td>
+		        </tr>
+		        <tr>
+		            <td><label path="location">Location</label></td>
+		            <td>
+		            	<select name="location">
+		            		<option disabled selected>Select Location</option>
+		            		<option th:each="_location: ${locations}" th:text="${_location.locationName + ' | ' + _location.locationAddress}" th:value="${_location.locationID}"></option>
+		            	</select>
+		            </td>
+		        </tr>
+		        <tr>
+		            <td colspan=2><input type="submit" value="Submit" /></td>
+		        </tr>
+		    </table>
+		</form>
+	</div>
+</body>
+</html>

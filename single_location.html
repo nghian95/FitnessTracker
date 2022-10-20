@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"> 
+	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>View Location</title>
+</head>
+<body id="bootstrap-overrides">
+	<div id="bg"></div>
+	<div th:insert="fragments/header.html"></div>
+	<div class="container">
+		<h1>Location</h1>
+		<table style="margin:auto">
+		
+			<tr>
+				<th>Location ID</th>
+				<th>Location Name</th>
+				<th>Location Address</th>
+				<th colspan=2></th>
+			</tr>
+			<tr>
+				<td th:text="${location.locationID}"></td>
+				<td th:text="${location.locationName}"></td>
+				<td th:text="${location.locationAddress}"></td>
+				<td ><a th:href="@{/updateLocation(locationID=${location.locationID})}">Update</a></td>
+				<td ><a th:href="@{/deleteLocation(locationID=${location.locationID})}" class="confirm">Delete</a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

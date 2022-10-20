@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="ISO-8859-1">
+	<title>Update Workout</title>
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script th:inline="javascript" defer>
+ 		var locationID = [[${workout.location.locationID}]];
+//  		console.log(locationID);
+	</script>
+	<script type="text/javascript" th:src="@{/script/javascript.js}" defer></script>
+	<script type="text/javascript" th:src="@{/script/workoutLocation.js}"></script>
+	<style>
+		#bootstrap-overrides .tableNoBorder {
+			border: none;
+			padding: 0rem 1rem 0rem 1rem;
+			width: 1rem;
+		}
+		th {
+			border:none;
+		}
+	</style>
+</head>
+<body id="bootstrap-overrides">
+	<div id="bg"></div>
+	<div th:insert="fragments/header.html"></div>
+	<div class="container">
+		<h3 style="text-align:center">Update Workout</h3>
+		<form action="#" th:action="@{/updateWorkout}" th:object="${workout}" th:method="put">
+		    <table class="updateTable">
+		    	<tr>
+		    		<td><label path="workoutID">Activity ID</label></td>
+		    		<td><input name="workoutID" th:value="${workout.workoutID}" readonly/></td>
+		    	</tr>
+		        <tr>
+		            <td><label path="workoutDate">Workout Date</label></td>
+		            <td><input name="workoutDate" type="date" th:value="${workout.workoutDate}"></td>
+		        </tr>
+		        <tr>
+		            <td><label path="location">Location</label></td>
+	<!-- 	            <td><input type="text" name="activityListName" /></td> -->
+		            <td>
+		            	<select name="location" id="locationSelect" required>
+		            		<option disabled selected value="">Select Location</option>
+		            		<option th:each="_location: ${locations}" th:text="${_location}" th:value="${_location.locationID}"></option>
+		            	</select>
+		            </td>
+		        </tr>
+		        <tr>
+		            <td colspan=2><input type="submit" value="Submit" /></td>
+		        </tr>
+		    </table>
+		</form>
+		<div style="text-align:center; margin-top: 1rem;">
+			<a th:href="@{/workout}">Back to Workouts</a>
+		</div>
+		
+	</div>
+</body>
+</html>

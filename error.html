@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="ISO-8859-1">
+	<title>Error</title>
+</head>
+<body>
+	<div id="bg"></div>
+	<div th:insert="fragments/header.html"></div>
+	<h1 th:unless="${msg != null}">Sorry, there was an error that occurred!</h1>
+	<h1 th:if="${msg != null}" th:text="${msg}"></h1>
+</body>
+</html>

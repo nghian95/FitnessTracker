@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 	 <!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"> 
+	<script type="text/javascript" th:src="@{/script/javascript.js}"></script>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>View Activity</title>  
+</head>
+<body id="bootstrap-overrides">
+	<div id="bg"></div>
+	<div th:insert="fragments/header.html"></div>
+	<div class="container">
+		<h1 style="text-align:center">Activity</h1>
+		<table style="margin:auto">
+		
+			<tr>
+				<th>Activity ID</th>
+				<th>Activity List</th>
+				<th>Sets</th>
+				<th>Comment</th>
+				<th colspan=2>
+			</tr>
+			<tr>
+				<td th:text="${activity.activityID}"></td>
+				<td th:if="${activity.activityList} != null" th:text="${activity.activityList.activityName}"></td>
+				<td th:unless="${activity.activityList} != null">N/A</td>
+				<td th:text="${activity.sets.size()}"></td>
+				<td th:text="${activity.comment}"></td>
+				<td ><a th:href="@{/updateActivity(activityID=${activity.activityID})}">Update</a></td>
+				<td ><a th:href="@{/deleteActivity(activityID=${activity.activityID})}" class="confirm">Delete</a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
