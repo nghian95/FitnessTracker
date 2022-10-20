@@ -1,6 +1,6 @@
 package com.nghianguyen.fitnesstracker.controller;
 
-import java.util.List;
+import java.security.Principal;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -11,14 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import com.nghianguyen.fitnesstracker.model.Location;
 import com.nghianguyen.fitnesstracker.model.User;
 import com.nghianguyen.fitnesstracker.security.UserRegistrationDto;
 import com.nghianguyen.fitnesstracker.service.UserServiceImpl;
@@ -33,15 +30,25 @@ public class UserController {
 	@Autowired
 	UserServiceImpl userService;
 	
+//	@Autowired
+//	LocationService locationService;
+	
 	@ModelAttribute("user")
 	public UserRegistrationDto userRegistrationDto() {
 		return new UserRegistrationDto();
 	}
 	
-//	@GetMapping("/user2/{email}")
-//	public Optional<User> getUserByID(@PathVariable("email") String email) {
-//		return userService.getUserByEmail(email);
-//	}
+	@GetMapping("/profile")
+	public String getUserByID(Model model, Principal principal) {	
+		String username = principal.getName();
+		User user = userService.findByEmail(username).get();
+		for (Location location : user.getLocations()) {
+			System.out.println(location);
+		}
+		model.addAttribute("user", user);
+//		List<Location> locations = locationService.
+		return "user_profile";
+	}
 //	
 //	@GetMapping("/user2")
 //	public List<User> getAllUsers() {
