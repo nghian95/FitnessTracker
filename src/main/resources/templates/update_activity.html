@@ -111,6 +111,9 @@
 		        </tr>
 		    </table>
 		</form>
+   		<div style="text-align:center; margin-top: 1rem;">
+			<a th:href="@{'/workout/'+${activity.workout.workoutID}}" th:text="${'Back to Workout ' + activity.workout.workoutID}"></a>
+		</div>
 	</div>
 </body>
 </html>

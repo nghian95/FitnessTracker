@@ -83,6 +83,9 @@
 		            <td colspan=2><input type="submit" value="Submit" /></td>
 		        </tr>
 		    </table>
+    		<div style="text-align:center; margin-top: 1rem;">
+				<a th:href="@{'/workout/'+${workout.workoutID}}" th:text="${'Back to Workout ' + workout.workoutID}"></a>
+			</div>
 		</form>
 	</div>
 </body>

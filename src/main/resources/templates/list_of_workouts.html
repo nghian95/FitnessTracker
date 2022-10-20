@@ -54,6 +54,9 @@
 				<td class="list"><a th:href="@{/updateWorkout(workoutID=${eachWorkout.workoutID})}">Update</a></td>
 				<td class="list"><a th:href="@{/deleteWorkout(workoutID=${eachWorkout.workoutID})}" class="confirm">Delete</a></td>
 			</tr>
+			<tr>
+				<td colspan=6><a th:href="@{/addWorkout}">Add Workout</a></td>
+			</tr>
 		</table>
 	</div>
 </body>
