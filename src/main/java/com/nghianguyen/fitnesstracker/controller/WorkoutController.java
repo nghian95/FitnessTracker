@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nghianguyen.fitnesstracker.exception.IncorrectUserException;
 import com.nghianguyen.fitnesstracker.model.Location;
 import com.nghianguyen.fitnesstracker.model.User;
 import com.nghianguyen.fitnesstracker.model.Workout;
@@ -83,8 +84,12 @@ public class WorkoutController {
 	 * are added to the Model.
 	 */
 	@GetMapping("/workout/{id}")
-	public String getWorkoutByID(@PathVariable("id") int id, Model model) {
-		model.addAttribute("workout", workoutService.getWorkoutByID(id).get());
+	public String getWorkoutByID(@PathVariable("id") int id, Model model, Principal principal) throws IncorrectUserException {
+		Workout workout = workoutService.getWorkoutByID(id).get();
+		if (!workout.getUser().getEmail().equals(principal.getName())) {
+			throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
+		}
+		model.addAttribute("workout", workout);
 		model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(id));
 		List<String> namesOfActivities = activityService.findCountOfMuscleGroups(id);
 		model.addAttribute("namesOfActivities", namesOfActivities);
@@ -107,8 +112,11 @@ public class WorkoutController {
 	 * List of locations is also provided to Model.
 	 */
 	@GetMapping("/updateWorkout")
-	public String updateWorkout(@RequestParam(value="workoutID") int workoutID, Model model) {
+	public String updateWorkout(@RequestParam(value="workoutID") int workoutID, Model model, Principal principal) throws IncorrectUserException {
 		Workout workout = workoutService.getWorkoutByID(workoutID).get();
+		if (!workout.getUser().getEmail().equals(principal.getName())) {
+			throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
+		}
 		model.addAttribute("workout", workout);
 		List<Location> locations = locationService.getAllLocations();
 		model.addAttribute("locations", locations);
@@ -156,7 +164,8 @@ public class WorkoutController {
 		   model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(workout.getWorkoutID()));
 		   List<String> namesOfActivities = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
 		   model.addAttribute("namesOfActivities", namesOfActivities);
-	       return "single_workout";
+		   return "redirect:/workout/" + workout.getWorkoutID(); 
+//	       return "single_workout";
 	}
 	
 	/*
@@ -165,9 +174,13 @@ public class WorkoutController {
 	 * related to the User to the view.
 	 */
 	@GetMapping("/deleteWorkout")
-	public String deleteWorkout(@RequestParam(value="workoutID") int workoutID, Model model, Principal principal) {
-		workoutService.deleteWorkoutByID(workoutID);
+	public String deleteWorkout(@RequestParam(value="workoutID") int workoutID, Model model, Principal principal) throws IncorrectUserException {
+		Workout workout = workoutService.getWorkoutByID(workoutID).get();
 		String email = principal.getName();
+		if (!workout.getUser().getEmail().equals(email)) {
+			throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
+		}
+		workoutService.deleteWorkoutByID(workoutID);
 		model.addAttribute("listOfWorkouts", workoutService.findWorkoutsByUser(email));
 		return "redirect:/workout";
 	}

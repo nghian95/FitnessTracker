@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.nghianguyen.fitnesstracker.exception.IncorrectUserException;
+
 @ControllerAdvice
 @Controller
 public class GlobalExceptionHandlerController implements ErrorController{
@@ -63,6 +65,13 @@ public class GlobalExceptionHandlerController implements ErrorController{
 	public String missingParameter(HttpServletRequest req, Exception ex, Model model) {
 		log.error("Request: " + req.getRequestURL() + " raised " + ex);
 		model.addAttribute("msg", "Please use the user interface to access the destination page.");
+		return "error";
+	}
+	
+	@ExceptionHandler(value = IncorrectUserException.class)
+	public String incorrectUser(HttpServletRequest req, Exception ex, Model model) {
+		log.error("Request: " + req.getRequestURL() + " raised " + ex);
+		model.addAttribute("msg", "Sorry! You can't perform that action as it belongs to another user.");
 		return "error";
 	}
 	

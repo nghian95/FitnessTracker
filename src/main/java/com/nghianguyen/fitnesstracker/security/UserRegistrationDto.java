@@ -34,9 +34,6 @@ public class UserRegistrationDto {
     @NotEmpty
     private String confirmEmail;
 
-//    @AssertTrue
-//    private Boolean terms;
-
     public String getFirstName() {
         return firstName;
     }

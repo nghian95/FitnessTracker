@@ -1,14 +1,16 @@
 package com.nghianguyen.fitnesstracker.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nghianguyen.fitnesstracker.exception.IncorrectUserException;
 import com.nghianguyen.fitnesstracker.model.Activity;
 import com.nghianguyen.fitnesstracker.model.ActivityList;
 import com.nghianguyen.fitnesstracker.model.Set;
@@ -23,9 +26,6 @@ import com.nghianguyen.fitnesstracker.model.Workout;
 import com.nghianguyen.fitnesstracker.service.ActivityListService;
 import com.nghianguyen.fitnesstracker.service.ActivityService;
 import com.nghianguyen.fitnesstracker.service.WorkoutService;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /*
  * 	Controller for any Activity related mappings and methods. CRUD Operations for Activity.
@@ -48,18 +48,22 @@ public class ActivityController {
 	 * 	Method to show all activities in the database, meant for admin use as this is not restricted
 	 * 	by users.
 	 */
-	@GetMapping("/activity")
-	public String getAllActivities(Model model){
-		model.addAttribute("listOfActivities", activityService.getAllActivities());
-		return "list_of_activities";
-	}
+//	@GetMapping("/activity")
+//	public String getAllActivities(Model model){
+//		model.addAttribute("listOfActivities", activityService.getAllActivities());
+//		return "list_of_activities";
+//	}
 
 	/*	
 	 * 	Return activity based on the Activity ID
 	 */
 	@GetMapping("/activity/{id}")
-	public String getActivityById(@PathVariable("id") int id, Model model) {
-		model.addAttribute("activity", activityService.getActivityById(id).get());
+	public String getActivityById(@PathVariable("id") int id, Model model, Principal principal) throws IncorrectUserException {
+		Activity activity = activityService.getActivityById(id).get();
+		if (!activity.getWorkout().getUser().getEmail().equals(principal.getName())) {
+			throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
+		}
+		model.addAttribute("activity", activity);
 		return "single_activity";
 	}
    
@@ -85,8 +89,11 @@ public class ActivityController {
 	 */
    @GetMapping("/updateActivity")
 //   public String updateActivity(@ModelAttribute("eachActivity") Activity activity, Model model) {
-   public String updateActivity(@RequestParam(value="activityID") int activityID, Model model) {
+   public String updateActivity(@RequestParam(value="activityID") int activityID, Model model, Principal principal) throws IncorrectUserException {
 	   Activity activity = activityService.getActivityById(activityID).get();
+	   if (!activity.getWorkout().getUser().getEmail().equals(principal.getName())) {
+		   throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
+	   }
 	   List<Set> sets = activity.getSets();
 	   if (sets.size() == 0) {
 		   sets.add(new Set());
@@ -166,11 +173,18 @@ public class ActivityController {
     * the single_workout view that the Activity was deleted from.
     */
    @GetMapping("/deleteActivity")
-   public String deleteActivity(@RequestParam("activityID") int activityID, @RequestParam("workoutID") int workoutID, Model model) {
+   public String deleteActivity(@RequestParam("activityID") int activityID, 
+		   @RequestParam("workoutID") int workoutID, 
+		   Model model, Principal principal) throws IncorrectUserException 
+   {
+	   Activity activity = activityService.getActivityById(activityID).get();
+	   if (!activity.getWorkout().getUser().getEmail().equals(principal.getName())) {
+		   throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
+	   }
 	   activityService.deleteActivity(activityID);
 	   model.addAttribute("workout", workoutService.getWorkoutByID(workoutID).get());
 	   model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(workoutID));
-	   return "single_workout";
+	   return "redirect:/workout/" + activity.getWorkout().getWorkoutID();
    }
    
   /*
