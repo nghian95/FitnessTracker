@@ -1,4 +1,4 @@
-package com.nguyennghia.FitnessTracker;
+package com.nghianguyen.fitnesstracker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

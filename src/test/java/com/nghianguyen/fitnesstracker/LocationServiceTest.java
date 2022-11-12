@@ -1,4 +1,4 @@
-package com.nguyennghia.FitnessTracker;
+package com.nghianguyen.fitnesstracker;
 
 import java.util.List;
 

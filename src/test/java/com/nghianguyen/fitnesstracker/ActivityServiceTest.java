@@ -1,4 +1,4 @@
-package com.nguyennghia.FitnessTracker;
+package com.nghianguyen.fitnesstracker;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,7 +47,7 @@ class ActivityServiceTest {
 	void testFindActivitiesInWorkout() {
 		Collection<Activity> listOfActivities = activityService.findActivitiesInWorkout(124);
 		Assertions.assertNotNull(listOfActivities);
-		Assertions.assertTrue(listOfActivities.size() == 4);
+		Assertions.assertTrue(listOfActivities.size() == 3);
 		
 	}
 	
@@ -99,7 +99,7 @@ class ActivityServiceTest {
 		List<String> muscleGroups = activityService.findCountOfMuscleGroups(16);
 		List<String> expectedMuscleGroups = new ArrayList<>();
 		expectedMuscleGroups.add("Chest=3");
-		expectedMuscleGroups.add("Tricep=3");
+		expectedMuscleGroups.add("Triceps=2");
 		Assertions.assertEquals(expectedMuscleGroups, muscleGroups);
 	}
 }
