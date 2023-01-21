@@ -28,7 +28,7 @@ public class WorkoutService {
 	/*
 	 * Gets a list of workouts that are associated with a specific User's email
 	 */
-	public Collection<Workout> findWorkoutsByUser(String email){
+	public List<Workout> findWorkoutsByUser(String email){
 		return workoutRepository.findWorkoutsByUser(email);
 	}
 	

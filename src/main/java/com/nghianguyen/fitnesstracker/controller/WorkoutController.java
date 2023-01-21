@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.nghianguyen.fitnesstracker.exception.IncorrectUserException;
 import com.nghianguyen.fitnesstracker.model.Location;
@@ -32,7 +33,8 @@ import com.nghianguyen.fitnesstracker.service.WorkoutService;
 /*
  * Controller that handles the mapping for all CRUD HTTP requests related to Workout entity
  */
-@Controller
+@CrossOrigin(origins = "*")
+@RestController
 public class WorkoutController {
 	
 	private static final Logger log = LoggerFactory.getLogger(WorkoutController.class);
@@ -54,10 +56,10 @@ public class WorkoutController {
 	 * irrespective of who the current user is. Returns a view of the entire list of workouts.
 	 * Meant for admin usage
 	 */
+	
 	@GetMapping("/admin/workout")
-	public String getAllWorkouts(Model model) {
-		model.addAttribute("listOfWorkouts",workoutService.getAllWorkouts());
-		return "list_of_workouts";
+	public List<Workout> getAllWorkouts() {
+		return workoutService.getAllWorkouts();
 	}
 	
 	/*
@@ -66,16 +68,15 @@ public class WorkoutController {
 	 * Returns that list to a view via Model.
 	 */
 	@GetMapping("/workout")
-	public String findWorkoutsByUser(Model model, Principal principal) {
-		Collection<Workout> userWorkouts = workoutService.findWorkoutsByUser(principal.getName());
-		model.addAttribute("listOfWorkouts", userWorkouts);
-		List<List<String>> listOfWorkoutsMuscleGroups = new ArrayList<>();
-		for (Workout workout : userWorkouts) {
-			List<String> muscleGroupCount = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
-			listOfWorkoutsMuscleGroups.add(muscleGroupCount);
-		}
-		model.addAttribute("listOfWorkoutsMuscleGroups", listOfWorkoutsMuscleGroups);
-		return "list_of_workouts";
+	public List<Workout> findWorkoutsByUser(Principal principal) {
+		return workoutService.findWorkoutsByUser(principal.getName());
+//		model.addAttribute("listOfWorkouts", userWorkouts);
+//		List<List<String>> listOfWorkoutsMuscleGroups = new ArrayList<>();
+//		for (Workout workout : userWorkouts) {
+//			List<String> muscleGroupCount = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
+//			listOfWorkoutsMuscleGroups.add(muscleGroupCount);
+//		}
+//		model.addAttribute("listOfWorkoutsMuscleGroups", listOfWorkoutsMuscleGroups);
 	}
 	
 	/*
@@ -84,44 +85,44 @@ public class WorkoutController {
 	 * are added to the Model.
 	 */
 	@GetMapping("/workout/{id}")
-	public String getWorkoutByID(@PathVariable("id") int id, Model model, Principal principal) throws IncorrectUserException {
+	public Workout getWorkoutByID(@PathVariable("id") int id, Principal principal) throws IncorrectUserException {
 		Workout workout = workoutService.getWorkoutByID(id).get();
 		if (!workout.getUser().getEmail().equals(principal.getName())) {
 			throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
 		}
-		model.addAttribute("workout", workout);
-		model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(id));
-		List<String> namesOfActivities = activityService.findCountOfMuscleGroups(id);
-		model.addAttribute("namesOfActivities", namesOfActivities);
-		return "single_workout";
+//		model.addAttribute("workout", workout);
+//		model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(id));
+//		List<String> namesOfActivities = activityService.findCountOfMuscleGroups(id);
+//		model.addAttribute("namesOfActivities", namesOfActivities);
+//		return "single_workout";
+		return workout;
 	}
 	
 	/*
 	 * This is to return the view where user can add a new workout. Uses Model to pass a list
 	 * of locations.
 	 */
-	@GetMapping("/addWorkout")
-	public String workoutForm(Model model) {
-		model.addAttribute("locations", locationService.getAllLocations());
-	   	return "add_workout";
-	}
+//	@GetMapping("/addWorkout")
+//	public List<Location> workoutForm() {
+//		return locationService.getAllLocations();
+//	}
 	
 	/*
 	 * This is to return a view where user can update their workout. By using @RequestParam 
 	 * workoutID the method getWorkoutByID is able to be used to add the Workout to the Model.
 	 * List of locations is also provided to Model.
 	 */
-	@GetMapping("/updateWorkout")
-	public String updateWorkout(@RequestParam(value="workoutID") int workoutID, Model model, Principal principal) throws IncorrectUserException {
-		Workout workout = workoutService.getWorkoutByID(workoutID).get();
-		if (!workout.getUser().getEmail().equals(principal.getName())) {
-			throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
-		}
-		model.addAttribute("workout", workout);
-		List<Location> locations = locationService.getAllLocations();
-		model.addAttribute("locations", locations);
-		return "update_workout";
-   }
+//	@GetMapping("/updateWorkout")
+//	public Workout updateWorkout(@RequestParam(value="workoutID") int workoutID, Principal principal) throws IncorrectUserException {
+//		Workout workout = workoutService.getWorkoutByID(workoutID).get();
+//		if (!workout.getUser().getEmail().equals(principal.getName())) {
+//			throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
+//		}
+////		model.addAttribute("workout", workout);
+////		List<Location> locations = locationService.getAllLocations();
+////		model.addAttribute("locations", locations);
+//		return workout;
+//   }
 	
 	/*
 	 * This creates a workout based on user inputted values that are mapped via @ModelAttribute
@@ -130,16 +131,16 @@ public class WorkoutController {
 	 * the Model.
 	 */
 	@PostMapping("/workout")
-	public String addWorkout(@ModelAttribute Workout workout, Model model, Principal principal) {
+	public Workout addWorkout(@ModelAttribute Workout workout, Principal principal) {
 		User user = userServiceImpl.findByEmail(principal.getName()).get();
 		workout.setUser(user);
 		workoutService.addWorkout(workout);
 		Workout retrievedWorkout = workoutService.getWorkoutByID(workout.getWorkoutID()).get();
-		model.addAttribute("workout", retrievedWorkout);
-		model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(workout.getWorkoutID()));
-		List<String> namesOfActivities = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
-		model.addAttribute("namesOfActivities", namesOfActivities);
-		return "single_workout";
+//		model.addAttribute("workout", retrievedWorkout);
+//		model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(workout.getWorkoutID()));
+//		List<String> namesOfActivities = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
+//		model.addAttribute("namesOfActivities", namesOfActivities);
+		return workout;
 	}
 	
 	/*
@@ -148,7 +149,7 @@ public class WorkoutController {
 	 * Updated workout is then retrieved and passed to the view via Model
 	 */
 	@PutMapping("/updateWorkout")
-	public String updateWorkout(@ModelAttribute Workout workout, Model model) {
+	public Workout updateWorkout(@ModelAttribute Workout workout) {
 	       Optional<Workout> workoutData = workoutService.getWorkoutByID(workout.getWorkoutID());
 
 	       if (workoutData.isPresent()) {
@@ -159,13 +160,14 @@ public class WorkoutController {
 	       }
 	       
 		   Workout retrievedWorkout = workoutService.getWorkoutByID(workout.getWorkoutID()).get();
-		   model.addAttribute("workout", retrievedWorkout);
-		   
-		   model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(workout.getWorkoutID()));
-		   List<String> namesOfActivities = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
-		   model.addAttribute("namesOfActivities", namesOfActivities);
-		   return "redirect:/workout/" + workout.getWorkoutID(); 
+//		   model.addAttribute("workout", retrievedWorkout);
+//		   
+//		   model.addAttribute("listOfActivities", activityService.findActivitiesInWorkout(workout.getWorkoutID()));
+//		   List<String> namesOfActivities = activityService.findCountOfMuscleGroups(workout.getWorkoutID());
+//		   model.addAttribute("namesOfActivities", namesOfActivities);
+//		   return "redirect:/workout/" + workout.getWorkoutID(); 
 //	       return "single_workout";
+		   return workout;
 	}
 	
 	/*
@@ -173,17 +175,17 @@ public class WorkoutController {
 	 * WorkoutService's method deleteWorkoutID(). Using Principal and Model we pass a list of Workouts
 	 * related to the User to the view.
 	 */
-	@GetMapping("/deleteWorkout")
-	public String deleteWorkout(@RequestParam(value="workoutID") int workoutID, Model model, Principal principal) throws IncorrectUserException {
-		Workout workout = workoutService.getWorkoutByID(workoutID).get();
-		String email = principal.getName();
-		if (!workout.getUser().getEmail().equals(email)) {
-			throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
-		}
-		workoutService.deleteWorkoutByID(workoutID);
-		model.addAttribute("listOfWorkouts", workoutService.findWorkoutsByUser(email));
-		return "redirect:/workout";
-	}
+//	@GetMapping("/deleteWorkout")
+//	public void deleteWorkout(@RequestParam(value="workoutID") int workoutID, Model model, Principal principal) throws IncorrectUserException {
+//		Workout workout = workoutService.getWorkoutByID(workoutID).get();
+//		String email = principal.getName();
+//		if (!workout.getUser().getEmail().equals(email)) {
+//			throw new IncorrectUserException("Sorry! You can't view that data as it belongs to another user.");
+//		}
+//		workoutService.deleteWorkoutByID(workoutID);
+//		model.addAttribute("listOfWorkouts", workoutService.findWorkoutsByUser(email));
+//		return "redirect:/workout";
+//	}
 	
 	/*
 	 * Meant for admin use. Deletes all workouts by calling WorkoutService's method deleteAllWorkouts()

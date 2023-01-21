@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.nghianguyen</groupId>
 	<artifactId>fitnesstracker</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<name>fitnesstracker</name>
 	<description>Fitness Tracker Application</description>
 	<properties>

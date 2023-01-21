@@ -1,6 +1,7 @@
 package com.nghianguyen.fitnesstracker.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -22,40 +23,49 @@ import com.nghianguyen.fitnesstracker.service.UserServiceImpl;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 // We will create userService class in upcoming step
+	
+	@Value("${application.security.disabled:false}")
+	private boolean securityDisabled;
+	
    @Autowired
    private UserServiceImpl userService;
 
    @Override
    protected void configure(HttpSecurity http) throws Exception {
-       http
-               .authorizeRequests()
-                   .antMatchers(
-                           "/registration**",
-                           "/js/**",
-                           "/script/**",
-                           "/css/**",
-                           "/img/**",
-                           "/webjars/**").permitAll()
-                   .anyRequest().authenticated()
-               .and()
-                   .formLogin()
-                       .loginPage("/login")
-                           .permitAll()
-               .and()
-                   .logout()
-                       .invalidateHttpSession(true)
-                       .clearAuthentication(true)
-                       .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                       .logoutSuccessUrl("/login?logout")
-               .permitAll();
-       
-       http.sessionManagement()
-       		.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-       
-       http.sessionManagement().maximumSessions(1).expiredUrl("/sessionExpired.html");
-       
-//       http.sessionManagement()
-//	       .invalidSessionUrl("/invalidSession.html");
+	   if (securityDisabled) {
+	   
+	   } else {
+	       http
+           .authorizeRequests()
+               .antMatchers(
+                       "/registration**",
+                       "/js/**",
+                       "/script/**",
+                       "/css/**",
+                       "/img/**",
+                       "/webjars/**").permitAll()
+               .anyRequest().authenticated()
+           .and()
+               .formLogin()
+                   .loginPage("/login")
+                       .permitAll()
+           .and()
+               .logout()
+                   .invalidateHttpSession(true)
+                   .clearAuthentication(true)
+                   .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                   .logoutSuccessUrl("/login?logout")
+           .permitAll();
+   
+		   http.sessionManagement()
+		   		.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+		   
+		   http.sessionManagement().maximumSessions(1).expiredUrl("/sessionExpired.html");
+   
+//   http.sessionManagement()
+//       .invalidSessionUrl("/invalidSession.html");		   
+	   }
+
    }
 
    /*

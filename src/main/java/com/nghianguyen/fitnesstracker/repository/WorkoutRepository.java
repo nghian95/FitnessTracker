@@ -1,6 +1,7 @@
 package com.nghianguyen.fitnesstracker.repository;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,5 @@ import com.nghianguyen.fitnesstracker.model.Workout;
 public interface WorkoutRepository extends JpaRepository<Workout, Integer>
 {
 	@Query("SELECT w FROM Workout w WHERE w.user.email = :email")
-	Collection<Workout> findWorkoutsByUser(String email);
+	List<Workout> findWorkoutsByUser(String email);
 }
